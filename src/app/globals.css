@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --primary: 68, 97, 242; /* rgba(68, 97, 242) */
+  --primary-light: 240, 244, 252; /* rgba(240, 244, 252) */
+  --primary-dark: 18, 45, 156; /* rgba(18, 45, 156) */
+}
