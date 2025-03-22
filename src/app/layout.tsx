@@ -8,7 +8,10 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: 'Elevate',
+  title: {
+    default: 'Welcome | ELEVATE',
+    template: '%s | ELEVATE',
+  },
   description: 'Elevate Exam App',
 };
 
@@ -19,7 +22,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${poppins.className} antialiased`}>{children}</body>
+      <body
+        className={`${poppins.className} bg-my-grey-50 text-my-grey-700 antialiased`}
+      >
+        {children}
+      </body>
     </html>
   );
 }

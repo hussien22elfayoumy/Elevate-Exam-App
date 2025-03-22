@@ -1,3 +1,8 @@
 export default function Home() {
-  return <h1 className="text-primary/60">Elevate exam app</h1>;
+  return (
+    <div>
+      <h1 className="text-3xl">Elevate exam app</h1>
+      <div className="bg-brand-light h-screen w-[400px] rounded-e-3xl"></div>
+    </div>
+  );
 }
