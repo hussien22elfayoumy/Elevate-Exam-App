@@ -17,6 +17,7 @@ const config: Config = {
           '0': 'rgba(var(--my-grey-0))',
           '50': 'rgba(var(--my-grey-50))',
           '100': 'rgba(var(--my-grey-100))',
+          '150': 'rgba(var(--my-grey-150))',
           '200': 'rgba(var(--my-grey-200))',
           '300': 'rgba(var(--my-grey-300))',
           '400': 'rgba(var(--my-grey-400))',
