@@ -1,8 +1,6 @@
-import { Button } from '@/components/ui/button';
-import Image from 'next/image';
-import Link from 'next/link';
 import { FaApple, FaFacebookF, FaGoogle, FaXTwitter } from 'react-icons/fa6';
-import { HiFaceFrown } from 'react-icons/hi2';
+
+import { Button } from '@/components/ui/button';
 
 export default function AuthProviders() {
   return (

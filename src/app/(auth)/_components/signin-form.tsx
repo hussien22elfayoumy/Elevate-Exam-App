@@ -40,7 +40,7 @@ export default function SigninForm() {
         </Link>
       </p>
       <Button variant="brand" size="form">
-        Create Account
+        Sign in
       </Button>
     </form>
   );

@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <>
-      <h2 className="mb-6 text-lg font-semibold">Sign up</h2>
+      <h2 className="mb-5 text-lg font-semibold">Sign up</h2>
       <SignupForm />
       <AuthProviders />
     </>
