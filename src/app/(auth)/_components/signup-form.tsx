@@ -1,10 +1,12 @@
+import Link from 'next/link';
+
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import Link from 'next/link';
 
 export default function SignupForm() {
   return (
     <form>
+      {/* First name */}
       <div className="mb-5">
         <Input
           className="h-12 rounded-lg"
@@ -13,6 +15,8 @@ export default function SignupForm() {
           placeholder="First Name"
         />
       </div>
+
+      {/* Last name */}
       <div className="mb-5">
         <Input
           className="h-12 rounded-lg"
@@ -21,6 +25,8 @@ export default function SignupForm() {
           placeholder="Last Name"
         />
       </div>
+
+      {/* Email */}
       <div className="mb-5">
         <Input
           className="h-12 rounded-lg"
@@ -29,6 +35,8 @@ export default function SignupForm() {
           placeholder="Email "
         />
       </div>
+
+      {/* Password */}
       <div className="mb-5">
         <Input
           className="h-12 rounded-lg"
@@ -37,6 +45,8 @@ export default function SignupForm() {
           placeholder="Password"
         />
       </div>
+
+      {/* Confirm Password */}
       <div className="mb-3">
         <Input
           className="h-12 rounded-lg"

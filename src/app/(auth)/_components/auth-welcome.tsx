@@ -5,7 +5,7 @@ import React from 'react';
 
 const svgs = {
   '/signin': 'assets/login.svg',
-  '/signup': 'assets/signup.svg',
+  '/signup': 'assets/login.svg',
   '/forgot-password': 'assets/forgot-password.svg',
   '/reset-password': 'assets/forgot-password.svg',
   '/verify-code': 'assets/verify-code.svg',
