@@ -1,51 +1,52 @@
 'use client';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import React from 'react';
 
+const svgs = {
+  '/signin': 'assets/login.svg',
+  '/signup': 'assets/signup.svg',
+  '/forgot-password': 'assets/forgot-password.svg',
+  '/reset-password': 'assets/forgot-password.svg',
+  '/verify-code': 'assets/verify-code.svg',
+};
+
+type PathName =
+  | '/signin'
+  | '/signup'
+  | '/forgot-password'
+  | '/reset-password'
+  | '/verify-code';
+
 export default function AuthWelcome() {
   const pathName = usePathname();
-  console.log(pathName);
-  let imgSrc = '';
-  switch (pathName) {
-    case '/signup': {
-      imgSrc = 'assets/signup.svg';
-      break;
-    }
-    case '/forgot-password': {
-      imgSrc = 'assets/forgot-password.svg';
-      break;
-    }
-    case '/verify-code': {
-      imgSrc = 'assets/verify-code.svg';
-      break;
-    }
-    case '/reset-password': {
-      imgSrc = 'assets/forgot-password.svg';
-      break;
-    }
-    default:
-      imgSrc = 'assets/login.svg';
-  }
 
   return (
-    <div className="flex h-full flex-col items-center justify-between">
-      {pathName === '/signin' || pathName === '/signup' ? (
-        <header className="self-start">
-          <h1 className="text-3xl font-bold tracking-wider md:text-4xl lg:text-5xl">
-            Welcome To <br />
-            <span className="text-brand-dark">Elevate</span>
+    <div className="flex h-full flex-col justify-between gap-10">
+      <header>
+        {pathName === '/signin' || pathName === '/signup' ? (
+          <>
+            <h1 className="text-3xl font-bold tracking-wider md:text-4xl lg:text-5xl">
+              Welcome To <br />
+              <span className="mt-4 block text-brand-dark">Elevate</span>
+            </h1>
+            <p className="mt-5 text-lg font-medium">
+              The Ultimate Programming Quiz Platform.
+            </p>
+          </>
+        ) : (
+          <h1 className="mt-10 text-3xl font-bold leading-[130%] tracking-wider text-brand-dark md:text-4xl lg:text-5xl">
+            Elevate
           </h1>
-          <p className="mt-5 text-lg font-medium">
-            The Ultimate Programming Quiz Platform.
-          </p>
-        </header>
-      ) : (
-        <h1 className="text-3xl font-bold leading-[130%] tracking-wider text-brand-dark md:text-4xl lg:text-5xl">
-          Elevate
-        </h1>
-      )}
-      <div className="h-2/3">
-        <img src={imgSrc} className="h-full w-full" alt="nice" />
+        )}
+      </header>
+      <div className="relative h-2/3 w-full">
+        <Image
+          src={svgs[pathName as PathName]}
+          fill
+          className="object-fill"
+          alt="Auth image"
+        />
       </div>
     </div>
   );
