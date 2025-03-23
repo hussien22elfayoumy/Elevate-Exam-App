@@ -21,9 +21,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="">
       <body
-        className={`${poppins.className} bg-my-grey-50 text-my-grey-700 antialiased`}
+        className={`${poppins.className} bg-my-grey-50 text-my-grey-800 antialiased`}
       >
         {children}
       </body>
