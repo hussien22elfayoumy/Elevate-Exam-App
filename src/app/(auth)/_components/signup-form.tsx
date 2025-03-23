@@ -55,7 +55,7 @@ export default function SignupForm() {
           placeholder="Confirm password "
         />
       </div>
-      <p className="mb-5 text-center">
+      <p className="mb-5 me-2 text-end">
         Alrady have an account?{' '}
         <Link href="/signin" className="font-medium text-brand">
           Login

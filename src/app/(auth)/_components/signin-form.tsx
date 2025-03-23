@@ -24,7 +24,7 @@ export default function SigninForm() {
       </Link>
 
       {/* Password */}
-      <div className="mb-5">
+      <div className="mb-3">
         <Input
           className="h-12 rounded-lg"
           type="password"
@@ -33,7 +33,7 @@ export default function SigninForm() {
         />
       </div>
 
-      <p className="mb-5 text-center">
+      <p className="mb-5 me-2 text-end">
         Don't have an account?{' '}
         <Link href="/signup" className="font-medium text-brand">
           Signup
