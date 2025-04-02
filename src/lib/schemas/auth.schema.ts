@@ -1,4 +1,6 @@
 import z from 'zod';
+
+//NOTE Signup form schema
 export const signupSchame = z
   .object({
     username: z
@@ -43,3 +45,11 @@ export const signupSchame = z
   });
 
 export type SignupFormValues = z.infer<typeof signupSchame>;
+
+//NOTE Signin form schema
+export const signinSchema = z.object({
+  email: z.string().email().min(1, 'Email is required'),
+  password: z.string().min(1, 'Password is required'),
+});
+
+export type SigninFormValues = z.infer<typeof signinSchema>;

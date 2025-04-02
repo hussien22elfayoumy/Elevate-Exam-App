@@ -1,20 +1,29 @@
 'use client';
 import Link from 'next/link';
+import { FieldValues, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { signIn } from 'next-auth/react';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { FieldValues, useForm } from 'react-hook-form';
-import { signIn } from 'next-auth/react';
+import { SigninFormValues, signinSchema } from '@/lib/schemas/auth.schema';
+import InputError from './input-error';
 
 export default function SigninForm() {
-  const { handleSubmit, register } = useForm({
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm<SigninFormValues>({
+    resolver: zodResolver(signinSchema),
+    mode: 'onBlur',
     defaultValues: {
       email: '',
       password: '',
     },
   });
 
-  async function onSubmit(values: FieldValues) {
+  async function onSubmit(values: SigninFormValues) {
     console.log(values);
     const res = await signIn('credentials', {
       callbackUrl: '/',
@@ -38,6 +47,7 @@ export default function SigninForm() {
           placeholder="Email "
           {...register('email')}
         />
+        <InputError inputField={errors.email} />
       </div>
 
       <Link
@@ -56,6 +66,7 @@ export default function SigninForm() {
           placeholder="Password"
           {...register('password')}
         />
+        <InputError inputField={errors.password} />
       </div>
 
       <p className="mb-5 me-2 text-end">
