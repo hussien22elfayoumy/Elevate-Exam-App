@@ -1,0 +1,15 @@
+declare type APIUser = {
+  _id: string;
+  username: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  role: 'user' | 'admin';
+  isVerified: boolean;
+};
+
+declare type LoginResponse = {
+  token: string;
+  user: APIUser;
+};

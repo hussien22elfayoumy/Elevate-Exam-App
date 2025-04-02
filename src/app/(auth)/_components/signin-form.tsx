@@ -1,11 +1,34 @@
+'use client';
 import Link from 'next/link';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { FieldValues, useForm } from 'react-hook-form';
+import { signIn } from 'next-auth/react';
 
 export default function SigninForm() {
+  const { handleSubmit, register } = useForm({
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+  });
+
+  async function onSubmit(values: FieldValues) {
+    console.log(values);
+    const res = await signIn('credentials', {
+      callbackUrl: '/',
+      redirect: false,
+      email: values.email,
+      password: values.password,
+    });
+
+    console.log(res);
+
+    console.log('22222');
+  }
   return (
-    <form>
+    <form onSubmit={handleSubmit(onSubmit)}>
       {/* Email */}
       <div className="mb-3">
         <Input
@@ -13,6 +36,7 @@ export default function SigninForm() {
           type="email"
           id="email"
           placeholder="Email "
+          {...register('email')}
         />
       </div>
 
@@ -30,6 +54,7 @@ export default function SigninForm() {
           type="password"
           id="password"
           placeholder="Password"
+          {...register('password')}
         />
       </div>
 
