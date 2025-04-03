@@ -8,12 +8,14 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { SigninFormValues, signinSchema } from '@/lib/schemas/auth.schema';
 import InputError from './input-error';
+import { toast } from '@/hooks/use-toast';
 
 export default function SigninForm() {
   const {
     handleSubmit,
     register,
-    formState: { errors },
+    reset,
+    formState: { errors, isSubmitting },
   } = useForm<SigninFormValues>({
     resolver: zodResolver(signinSchema),
     mode: 'onBlur',
@@ -24,17 +26,35 @@ export default function SigninForm() {
   });
 
   async function onSubmit(values: SigninFormValues) {
-    console.log(values);
-    const res = await signIn('credentials', {
-      callbackUrl: '/',
-      redirect: false,
-      email: values.email,
-      password: values.password,
-    });
+    try {
+      const res = await signIn('credentials', {
+        callbackUrl: '/',
+        redirect: false,
+        email: values.email,
+        password: values.password,
+      });
 
-    console.log(res);
+      if (!res?.ok) {
+        throw new Error(res?.error || 'Something went Wrong');
+      }
 
-    console.log('22222');
+      toast({
+        title: 'Success',
+        description: 'Welcome to Elevate enjoy',
+        variant: 'success',
+      });
+
+      reset();
+
+      setTimeout(() => (window.location.href = '/'), 1000);
+    } catch (err) {
+      console.log('Signin Error:', (err as Error).message);
+      toast({
+        title: 'Uh oh! Something went wrong.',
+        description: (err as Error).message,
+        variant: 'destructive',
+      });
+    }
   }
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -45,6 +65,7 @@ export default function SigninForm() {
           type="email"
           id="email"
           placeholder="Email "
+          fieldError={errors.email}
           {...register('email')}
         />
         <InputError inputField={errors.email} />
@@ -64,6 +85,7 @@ export default function SigninForm() {
           type="password"
           id="password"
           placeholder="Password"
+          fieldError={errors.email}
           {...register('password')}
         />
         <InputError inputField={errors.password} />
@@ -75,8 +97,8 @@ export default function SigninForm() {
           Signup
         </Link>
       </p>
-      <Button variant="brand" size="form">
-        Sign in
+      <Button disabled={isSubmitting} variant="brand" size="form">
+        {isSubmitting ? 'loading...' : 'Sign in'}
       </Button>
     </form>
   );

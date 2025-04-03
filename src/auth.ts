@@ -14,7 +14,6 @@ export const authOptions: NextAuthOptions = {
         password: {},
       },
       authorize: async (credentials) => {
-        console.log(credentials);
         const res = await fetch(`${process.env.API}/auth/signin`, {
           method: 'POST',
           body: JSON.stringify({
@@ -28,9 +27,7 @@ export const authOptions: NextAuthOptions = {
         const payload: APIResponse<LoginResponse> = await res.json();
 
         if (!res.ok || 'code' in payload) {
-          throw new Error(
-            `Error: ${payload.message}` || 'Something went wrong'
-          );
+          throw new Error(payload.message || 'Something went wrong');
         }
 
         return {
