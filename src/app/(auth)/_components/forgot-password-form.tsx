@@ -1,7 +1,9 @@
 'use client';
+
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useRouter } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -10,12 +12,14 @@ import {
   ForgotPasswordFormValues,
 } from '@/lib/schemas/auth.schema';
 import InputError from './input-error';
+import { forgotPassword } from '../_actions/auth.action';
+import { toast } from '@/hooks/use-toast';
 
 export default function ForgotPasswordForm() {
   const {
     handleSubmit,
     register,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<ForgotPasswordFormValues>({
     resolver: zodResolver(forgotPassowrdSchema),
     mode: 'onBlur',
@@ -24,8 +28,27 @@ export default function ForgotPasswordForm() {
     },
   });
 
+  const router = useRouter();
+
   async function onSubmit(values: ForgotPasswordFormValues) {
-    console.log(values);
+    try {
+      const data = await forgotPassword(values);
+
+      toast({
+        title: data.message,
+        description: data.info,
+        variant: 'success',
+      });
+
+      router.push('/verify-code');
+    } catch (err) {
+      console.log((err as Error).message);
+      toast({
+        title: 'Uh oh! Something went wrong.',
+        description: (err as Error).message,
+        variant: 'destructive',
+      });
+    }
   }
 
   return (
@@ -33,10 +56,12 @@ export default function ForgotPasswordForm() {
       {/* Email */}
       <div className="mb-4">
         <Input
+          autoComplete="email"
           className="h-12 rounded-lg"
           type="email"
           id="email"
           placeholder="Email "
+          fieldError={errors.email}
           {...register('email')}
         />
 
@@ -49,8 +74,9 @@ export default function ForgotPasswordForm() {
           Login
         </Link>
       </p>
-      <Button variant="brand" size="form">
-        Reset Password
+
+      <Button disabled={isSubmitting} variant="brand" size="form">
+        {isSubmitting ? 'Sending email...' : 'Reset Password'}
       </Button>
     </form>
   );

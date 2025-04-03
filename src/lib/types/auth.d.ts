@@ -13,3 +13,7 @@ declare type LoginResponse = {
   token: string;
   user: APIUser;
 };
+
+declare type ForgotPasswordResponse = {
+  info: string;
+};
