@@ -1,11 +1,28 @@
+'use client';
 import Link from 'next/link';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { useForm } from 'react-hook-form';
+import InputError from './input-error';
 
 export default function VerifyCodeForm() {
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      resetCode: '',
+    },
+  });
+
+  async function onSubmit(values: { resetCode: string }) {
+    console.log(values);
+  }
+
   return (
-    <form>
+    <form onSubmit={handleSubmit(onSubmit)}>
       {/* veriication code */}
       <div className="mb-4">
         <Input
@@ -13,7 +30,12 @@ export default function VerifyCodeForm() {
           type="text"
           id="verifyCode"
           placeholder="Verify code"
+          {...register('resetCode', {
+            required: 'Reset Code is required',
+          })}
         />
+
+        <InputError inputField={errors.resetCode} />
       </div>
 
       <p className="mb-5 me-2 text-end">
