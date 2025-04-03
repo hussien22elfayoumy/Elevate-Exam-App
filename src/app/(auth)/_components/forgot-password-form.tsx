@@ -11,6 +11,7 @@ import {
   forgotPassowrdSchema,
   ForgotPasswordFormValues,
 } from '@/lib/schemas/auth.schema';
+import { APIToastError } from '@/lib/utils/api-toast-error';
 import InputError from './input-error';
 import { forgotPassword } from '../_actions/auth.action';
 import { toast } from '@/hooks/use-toast';
@@ -42,12 +43,7 @@ export default function ForgotPasswordForm() {
 
       router.push('/verify-code');
     } catch (err) {
-      console.log((err as Error).message);
-      toast({
-        title: 'Uh oh! Something went wrong.',
-        description: (err as Error).message,
-        variant: 'destructive',
-      });
+      APIToastError(err);
     }
   }
 

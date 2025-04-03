@@ -10,6 +10,7 @@ import { SignupFormValues, signupSchame } from '@/lib/schemas/auth.schema';
 import { signup } from '../_actions/auth.action';
 import { toast } from '@/hooks/use-toast';
 import InputError from './input-error';
+import { APIToastError } from '@/lib/utils/api-toast-error';
 
 export default function SignupForm() {
   const {
@@ -43,12 +44,7 @@ export default function SignupForm() {
       });
       router.push('/signin');
     } catch (err) {
-      console.log((err as Error).message);
-      toast({
-        title: 'Uh oh! Something went wrong.',
-        description: (err as Error).message,
-        variant: 'destructive',
-      });
+      APIToastError(err);
     }
   }
 

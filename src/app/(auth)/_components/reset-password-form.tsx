@@ -13,6 +13,7 @@ import {
 } from '@/lib/schemas/auth.schema';
 import { resetPassword } from '../_actions/auth.action';
 import { toast } from '@/hooks/use-toast';
+import { APIToastError } from '@/lib/utils/api-toast-error';
 
 export default function ResetPasswordForm() {
   const {
@@ -43,12 +44,7 @@ export default function ResetPasswordForm() {
 
       router.push('/signin');
     } catch (err) {
-      console.log((err as Error).message);
-      toast({
-        title: 'Uh oh! Something went wrong.',
-        description: (err as Error).message,
-        variant: 'destructive',
-      });
+      APIToastError(err);
     }
   }
 

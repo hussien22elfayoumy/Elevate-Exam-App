@@ -9,6 +9,7 @@ import { Input } from '@/components/ui/input';
 import { SigninFormValues, signinSchema } from '@/lib/schemas/auth.schema';
 import InputError from './input-error';
 import { toast } from '@/hooks/use-toast';
+import { APIToastError } from '@/lib/utils/api-toast-error';
 
 export default function SigninForm() {
   const {
@@ -48,12 +49,7 @@ export default function SigninForm() {
 
       setTimeout(() => (window.location.href = '/'), 1000);
     } catch (err) {
-      console.log('Signin Error:', (err as Error).message);
-      toast({
-        title: 'Uh oh! Something went wrong.',
-        description: (err as Error).message,
-        variant: 'destructive',
-      });
+      APIToastError(err);
     }
   }
   return (
