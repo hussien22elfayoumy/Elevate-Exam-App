@@ -1,22 +1,25 @@
 import * as React from 'react';
 
 import { cn } from '@/lib/utils';
+import { FieldError } from 'react-hook-form';
 
-const Input = React.forwardRef<HTMLInputElement, React.ComponentProps<'input'>>(
-  ({ className, type, ...props }, ref) => {
-    return (
-      <input
-        type={type}
-        className={cn(
-          'bg-my-grey-150 file:text-foreground placeholder:text-muted-foreground flex h-9 w-full rounded-md border border-my-grey-200 px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
-          className
-        )}
-        ref={ref}
-        {...props}
-      />
-    );
-  }
-);
+const Input = React.forwardRef<
+  HTMLInputElement,
+  React.ComponentProps<'input'> & { fieldError?: FieldError | undefined }
+>(({ className, fieldError, type, ...props }, ref) => {
+  return (
+    <input
+      type={type}
+      className={cn(
+        'flex h-9 w-full rounded-md border border-my-grey-200 bg-my-grey-150 px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
+        className,
+        Boolean(fieldError) && 'border-red-500 focus-visible:ring-red-500'
+      )}
+      ref={ref}
+      {...props}
+    />
+  );
+});
 Input.displayName = 'Input';
 
 export { Input };

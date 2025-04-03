@@ -1,3 +1,4 @@
+import { Toaster } from '@/components/ui/toaster';
 import NextAuthProvider from './components/next-auth.provider';
 
 type ProivderProps = {
@@ -5,5 +6,12 @@ type ProivderProps = {
 };
 
 export default function Providers({ children }: ProivderProps) {
-  return <NextAuthProvider>{children}</NextAuthProvider>;
+  return (
+    <NextAuthProvider>
+      <>
+        {children}
+        <Toaster />
+      </>
+    </NextAuthProvider>
+  );
 }

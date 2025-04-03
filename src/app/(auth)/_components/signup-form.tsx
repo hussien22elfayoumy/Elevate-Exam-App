@@ -2,17 +2,20 @@
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useRouter } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { SignupFormValues, signupSchame } from '@/lib/schemas/auth.schema';
+import { signup } from '../_actions/auth.action';
+import { toast } from '@/hooks/use-toast';
 import InputError from './input-error';
 
 export default function SignupForm() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<SignupFormValues>({
     resolver: zodResolver(signupSchame),
     mode: 'onBlur',
@@ -26,9 +29,27 @@ export default function SignupForm() {
       phone: '',
     },
   });
+  const router = useRouter();
 
-  function onSubmit(values: SignupFormValues) {
-    console.log(values);
+  async function onSubmit(values: SignupFormValues) {
+    try {
+      const data = await signup(values);
+      console.log(data);
+
+      toast({
+        title: 'Account created Successfully',
+        description: 'Please login now',
+        variant: 'success',
+      });
+      router.push('/signin');
+    } catch (err) {
+      console.log((err as Error).message);
+      toast({
+        title: 'Uh oh! Something went wrong.',
+        description: (err as Error).message,
+        variant: 'destructive',
+      });
+    }
   }
 
   return (
@@ -41,6 +62,7 @@ export default function SignupForm() {
           type="text"
           id="username"
           placeholder="User name"
+          fieldError={errors.username}
           {...register('username')}
         />
         <InputError inputField={errors.username} />
@@ -53,6 +75,7 @@ export default function SignupForm() {
           type="text"
           id="firstName"
           placeholder="First Name"
+          fieldError={errors.firstName}
           {...register('firstName')}
         />
         <InputError inputField={errors.firstName} />
@@ -66,6 +89,7 @@ export default function SignupForm() {
           type="text"
           id="lastName"
           placeholder="Last Name"
+          fieldError={errors.lastName}
           {...register('lastName')}
         />
         <InputError inputField={errors.lastName} />
@@ -79,6 +103,7 @@ export default function SignupForm() {
           type="email"
           id="email"
           placeholder="Email "
+          fieldError={errors.email}
           {...register('email')}
         />
         <InputError inputField={errors.email} />
@@ -92,6 +117,7 @@ export default function SignupForm() {
           type="tel"
           id="phone"
           placeholder="Phone number"
+          fieldError={errors.phone}
           {...register('phone')}
         />
         <InputError inputField={errors.phone} />
@@ -104,6 +130,7 @@ export default function SignupForm() {
           type="password"
           id="password"
           placeholder="Password"
+          fieldError={errors.password}
           {...register('password')}
         />
         <InputError inputField={errors.password} />
@@ -116,6 +143,7 @@ export default function SignupForm() {
           type="password"
           id="confirmPassword"
           placeholder="Confirm password "
+          fieldError={errors.rePassword}
           {...register('rePassword')}
         />
         <InputError inputField={errors.rePassword} />
@@ -128,8 +156,8 @@ export default function SignupForm() {
         </Link>
       </p>
 
-      <Button variant="brand" size="form">
-        Create Account
+      <Button disabled={isSubmitting} variant="brand" size="form">
+        {isSubmitting ? 'Creating Account...' : 'Create Account'}
       </Button>
     </form>
   );
