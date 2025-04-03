@@ -2,6 +2,7 @@
 
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useRouter } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -10,12 +11,14 @@ import {
   ResetPasswordFormValues,
   resetPasswordSchema,
 } from '@/lib/schemas/auth.schema';
+import { resetPassword } from '../_actions/auth.action';
+import { toast } from '@/hooks/use-toast';
 
 export default function ResetPasswordForm() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<ResetPasswordFormValues>({
     resolver: zodResolver(resetPasswordSchema),
     mode: 'onBlur',
@@ -26,8 +29,27 @@ export default function ResetPasswordForm() {
     },
   });
 
-  function onSubmit(values: ResetPasswordFormValues) {
-    console.log(values);
+  const router = useRouter();
+
+  async function onSubmit(values: ResetPasswordFormValues) {
+    try {
+      const data = await resetPassword(values);
+
+      toast({
+        title: data.message,
+        description: 'Password resetted, you can login in now',
+        variant: 'success',
+      });
+
+      router.push('/signin');
+    } catch (err) {
+      console.log((err as Error).message);
+      toast({
+        title: 'Uh oh! Something went wrong.',
+        description: (err as Error).message,
+        variant: 'destructive',
+      });
+    }
   }
 
   return (
@@ -35,10 +57,12 @@ export default function ResetPasswordForm() {
       {/* Email */}
       <div className="mb-5">
         <Input
+          autoComplete="email"
           className="h-12 rounded-lg"
           type="email"
           id="email"
           placeholder="Email "
+          fieldError={errors.email}
           {...register('email')}
         />
         <InputError inputField={errors.email} />
@@ -51,6 +75,8 @@ export default function ResetPasswordForm() {
           type="password"
           id="password"
           placeholder="Password"
+          fieldError={errors.password}
+          {...register('password')}
         />
         <InputError inputField={errors.password} />
       </div>
@@ -62,12 +88,14 @@ export default function ResetPasswordForm() {
           type="password"
           id="confirmPassword"
           placeholder="Confirm password "
+          fieldError={errors.rePassword}
+          {...register('rePassword')}
         />
         <InputError inputField={errors.rePassword} />
       </div>
 
-      <Button variant="brand" size="form">
-        Confirm change
+      <Button disabled={isSubmitting} variant="brand" size="form">
+        {isSubmitting ? 'Resetting password...' : 'Reset password'}
       </Button>
     </form>
   );

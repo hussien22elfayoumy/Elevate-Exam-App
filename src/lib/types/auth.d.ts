@@ -21,3 +21,7 @@ declare type ForgotPasswordResponse = {
 declare type VerifyResetCodeResponse = {
   status: string;
 };
+
+declare type ResetPasswordResponse = {
+  token: string;
+};

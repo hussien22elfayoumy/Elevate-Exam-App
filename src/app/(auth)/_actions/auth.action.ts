@@ -3,6 +3,7 @@
 import { JSON_HEADER } from '@/lib/constants/api.constant';
 import {
   ForgotPasswordFormValues,
+  ResetPasswordFormValues,
   SignupFormValues,
 } from '@/lib/schemas/auth.schema';
 
@@ -60,6 +61,31 @@ export async function verifyResetCode(values: { resetCode: string }) {
     });
 
     const data: APIResponse<VerifyResetCodeResponse> = await res.json();
+
+    if (!res.ok || 'code' in data) {
+      throw new Error(data.message || 'Something went wrong, try again later');
+    }
+
+    return data;
+  } catch (err) {
+    console.log((err as Error).message);
+    throw err;
+  }
+}
+
+// NOTE: Verify code function
+export async function resetPassword(values: ResetPasswordFormValues) {
+  try {
+    const res = await fetch(`${process.env.API}/auth/resetPassword`, {
+      method: 'PUT',
+      body: JSON.stringify({
+        email: values.email,
+        newPassword: values.password,
+      }),
+      headers: { ...JSON_HEADER },
+    });
+
+    const data: APIResponse<ResetPasswordResponse> = await res.json();
 
     if (!res.ok || 'code' in data) {
       throw new Error(data.message || 'Something went wrong, try again later');
