@@ -49,3 +49,25 @@ export async function forgotPassword(values: ForgotPasswordFormValues) {
     throw err;
   }
 }
+
+// NOTE: Verify code function
+export async function verifyResetCode(values: { resetCode: string }) {
+  try {
+    const res = await fetch(`${process.env.API}/auth/verifyResetCode`, {
+      method: 'POST',
+      body: JSON.stringify(values),
+      headers: { ...JSON_HEADER },
+    });
+
+    const data: APIResponse<VerifyResetCodeResponse> = await res.json();
+
+    if (!res.ok || 'code' in data) {
+      throw new Error(data.message || 'Something went wrong, try again later');
+    }
+
+    return data;
+  } catch (err) {
+    console.log((err as Error).message);
+    throw err;
+  }
+}

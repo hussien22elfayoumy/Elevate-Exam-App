@@ -76,7 +76,7 @@ export default function ForgotPasswordForm() {
       </p>
 
       <Button disabled={isSubmitting} variant="brand" size="form">
-        {isSubmitting ? 'Sending email...' : 'Reset Password'}
+        {isSubmitting ? 'Sending code...' : 'Reset Password'}
       </Button>
     </form>
   );

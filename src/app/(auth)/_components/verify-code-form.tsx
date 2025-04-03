@@ -1,24 +1,46 @@
 'use client';
 import Link from 'next/link';
+import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { useForm } from 'react-hook-form';
 import InputError from './input-error';
+import { verifyResetCode } from '../_actions/auth.action';
+import { toast } from '@/hooks/use-toast';
 
 export default function VerifyCodeForm() {
   const {
     handleSubmit,
     register,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm({
     defaultValues: {
       resetCode: '',
     },
   });
 
+  const router = useRouter();
+
   async function onSubmit(values: { resetCode: string }) {
-    console.log(values);
+    try {
+      const data = await verifyResetCode(values);
+
+      toast({
+        title: data.status,
+        description: 'You can reset your password now',
+        variant: 'success',
+      });
+
+      router.push('/reset-password');
+    } catch (err) {
+      console.log((err as Error).message);
+      toast({
+        title: 'Uh oh! Something went wrong.',
+        description: (err as Error).message,
+        variant: 'destructive',
+      });
+    }
   }
 
   return (
@@ -29,6 +51,7 @@ export default function VerifyCodeForm() {
           className="h-12 rounded-lg"
           type="text"
           id="verifyCode"
+          fieldError={errors.resetCode}
           placeholder="Verify code"
           {...register('resetCode', {
             required: 'Reset Code is required',
@@ -45,8 +68,8 @@ export default function VerifyCodeForm() {
         </Link>
       </p>
 
-      <Button variant="brand" size="form">
-        Verify code
+      <Button disabled={isSubmitting} variant="brand" size="form">
+        {isSubmitting ? 'Verifing code...' : 'Verify code'}
       </Button>
     </form>
   );

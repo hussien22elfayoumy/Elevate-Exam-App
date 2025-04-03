@@ -17,3 +17,7 @@ declare type LoginResponse = {
 declare type ForgotPasswordResponse = {
   info: string;
 };
+
+declare type VerifyResetCodeResponse = {
+  status: string;
+};
