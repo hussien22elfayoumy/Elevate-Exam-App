@@ -8,3 +8,10 @@ type ErrorResponse = {
 };
 
 declare type APIResponse<T> = SuccessfullResponse<T> | ErrorResponse;
+
+declare type APIRequestOptions = {
+  endpoint: string;
+  method?: 'GET' | 'POST' | 'PUT' | 'DELETE';
+  body?: object;
+  headers?: HeadersInit | undefined;
+};

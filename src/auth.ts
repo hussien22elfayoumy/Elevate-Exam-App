@@ -1,6 +1,7 @@
 import { NextAuthOptions, User } from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
 import { JSON_HEADER } from '@/lib/constants/api.constant';
+import { apiRequest } from './lib/utils/api-request';
 
 export const authOptions: NextAuthOptions = {
   pages: {
@@ -14,21 +15,14 @@ export const authOptions: NextAuthOptions = {
         password: {},
       },
       authorize: async (credentials) => {
-        const res = await fetch(`${process.env.API}/auth/signin`, {
+        const payload = await apiRequest<LoginResponse>({
+          endpoint: 'auth/signin',
           method: 'POST',
-          body: JSON.stringify({
+          body: {
             email: credentials?.email,
             password: credentials?.password,
-          }),
-          headers: {
-            ...JSON_HEADER,
           },
         });
-        const payload: APIResponse<LoginResponse> = await res.json();
-
-        if (!res.ok || 'code' in payload) {
-          throw new Error(payload.message || 'Something went wrong');
-        }
 
         return {
           id: payload.user._id,
