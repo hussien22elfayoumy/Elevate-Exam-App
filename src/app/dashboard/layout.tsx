@@ -9,8 +9,10 @@ export default function Layout({ children }: DashboardLayoutProps) {
   return (
     <SidebarProvider>
       <DashboardSideBar />
-      <SidebarTrigger className="!size-6" />
-      <main className="px-10 pt-20">{children}</main>
+      <div className="relative w-full">
+        <SidebarTrigger className="fixed top-2 ms-1" />
+        <main className="h-[1000px] px-5 pt-12">{children}</main>
+      </div>
     </SidebarProvider>
   );
 }
