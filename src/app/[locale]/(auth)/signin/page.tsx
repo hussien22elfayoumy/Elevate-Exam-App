@@ -1,7 +1,6 @@
 import { Metadata } from 'next';
-
-import AuthProviders from '@/app/(auth)/_components/auth-providers';
-import SigninForm from '@/app/(auth)/_components/signin-form';
+import SigninForm from '../_components/signin-form';
+import AuthProviders from '../_components/auth-providers';
 
 export const metadata: Metadata = {
   title: 'Sign in',

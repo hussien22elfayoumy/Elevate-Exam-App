@@ -1,5 +1,4 @@
 'use client';
-import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { signIn } from 'next-auth/react';
@@ -10,6 +9,7 @@ import { SigninFormValues, signinSchema } from '@/lib/schemas/auth.schema';
 import InputError from './input-error';
 import { toast } from '@/hooks/use-toast';
 import { APIToastError } from '@/lib/utils/api-toast-error';
+import { Link } from '@/i18n/navigation';
 
 export default function SigninForm() {
   const {

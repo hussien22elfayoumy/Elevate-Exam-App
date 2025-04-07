@@ -1,13 +1,14 @@
 'use client';
+import { usePathname } from '@/i18n/navigation';
+import { useLocale } from 'next-intl';
 import Image from 'next/image';
-import { usePathname } from 'next/navigation';
 
 const svgs = {
-  '/signin': 'assets/login.svg',
-  '/signup': 'assets/login.svg',
-  '/forgot-password': 'assets/forgot-password.svg',
-  '/reset-password': 'assets/forgot-password.svg',
-  '/verify-code': 'assets/verify-code.svg',
+  '/signin': '/assets/login.svg',
+  '/signup': '/assets/login.svg',
+  '/forgot-password': '/assets/forgot-password.svg',
+  '/reset-password': '/assets/forgot-password.svg',
+  '/verify-code': '/assets/verify-code.svg',
 };
 
 type PathName =
@@ -19,6 +20,9 @@ type PathName =
 
 export default function AuthWelcome() {
   const pathName = usePathname();
+  const locale = useLocale();
+  console.log('locale', locale);
+  console.log(pathName, 'pahtname');
 
   return (
     <div className="flex h-full flex-col justify-between gap-10">

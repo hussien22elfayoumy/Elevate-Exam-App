@@ -1,10 +1,9 @@
 import { Metadata } from 'next';
-
-import AuthProviders from '@/app/(auth)/_components/auth-providers';
-import SignupForm from '@/app/(auth)/_components/signup-form';
+import SignupForm from '../_components/signup-form';
+import AuthProviders from '../_components/auth-providers';
 
 export const metadata: Metadata = {
-  title: 'Signup',
+  title: 'Sign up',
 };
 
 export default function Page() {

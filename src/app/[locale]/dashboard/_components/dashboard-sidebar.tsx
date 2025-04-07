@@ -1,14 +1,12 @@
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
   SidebarMenu,
 } from '@/components/ui/sidebar';
 import DashboardSidebarLinks from './dashboard-sidebar-links';
-import Image from 'next/image';
 
 // Menu items.
 

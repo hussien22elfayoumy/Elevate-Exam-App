@@ -1,5 +1,4 @@
 'use client';
-import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 
@@ -9,6 +8,7 @@ import InputError from './input-error';
 import { verifyResetCode } from '../_actions/auth.action';
 import { toast } from '@/hooks/use-toast';
 import { APIToastError } from '@/lib/utils/api-toast-error';
+import { Link } from '@/i18n/navigation';
 
 export default function VerifyCodeForm() {
   const {

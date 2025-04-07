@@ -1,5 +1,4 @@
 'use client';
-import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
@@ -11,6 +10,7 @@ import { signup } from '../_actions/auth.action';
 import { toast } from '@/hooks/use-toast';
 import InputError from './input-error';
 import { APIToastError } from '@/lib/utils/api-toast-error';
+import { Link } from '@/i18n/navigation';
 
 export default function SignupForm() {
   const {

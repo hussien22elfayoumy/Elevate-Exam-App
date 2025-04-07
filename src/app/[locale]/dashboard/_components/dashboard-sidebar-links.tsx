@@ -2,9 +2,8 @@
 import { LayoutDashboard } from 'lucide-react';
 
 import { SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
+import { Link, usePathname } from '@/i18n/navigation';
 
 const items = [
   {
@@ -34,7 +33,7 @@ export default function DashboardSidebarLinks() {
           <SidebarMenuButton asChild>
             <Link
               className={cn(
-                'block px-3 py-5 text-my-grey-800 transition-all hover:bg-brand hover:text-brand hover:text-white',
+                'block px-3 py-5 text-my-grey-800 transition-all hover:!bg-brand hover:text-brand hover:text-white',
                 pathName === item.href && 'bg-brand text-white'
               )}
               href={item.href}
