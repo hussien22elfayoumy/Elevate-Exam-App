@@ -1,13 +1,15 @@
 import { FaApple, FaFacebookF, FaGoogle, FaXTwitter } from 'react-icons/fa6';
+import { useTranslations } from 'next-intl';
 
 import { Button } from '@/components/ui/button';
 
 export default function AuthProviders() {
+  const t = useTranslations();
   return (
     <>
       <div className="mb-5 mt-5 flex items-center gap-2">
         <div className="h-[2px] flex-1 bg-my-grey-300"></div>
-        <p className="text-my-grey-600">Or continue with</p>
+        <p className="text-my-grey-600">{t('continue-with')}</p>
         <div className="h-[2px] flex-1 bg-my-grey-300"></div>
       </div>
 

@@ -1,6 +1,6 @@
 'use client';
 import { useForm } from 'react-hook-form';
-import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -8,9 +8,11 @@ import InputError from './input-error';
 import { verifyResetCode } from '../_actions/auth.action';
 import { toast } from '@/hooks/use-toast';
 import { APIToastError } from '@/lib/utils/api-toast-error';
-import { Link } from '@/i18n/navigation';
+import { Link, useRouter } from '@/i18n/navigation';
 
 export default function VerifyCodeForm() {
+  const t = useTranslations();
+
   const {
     handleSubmit,
     register,
@@ -48,7 +50,7 @@ export default function VerifyCodeForm() {
           type="text"
           id="verifyCode"
           fieldError={errors.resetCode}
-          placeholder="Verify code"
+          placeholder={t('verify-code')}
           {...register('resetCode', {
             required: 'Reset Code is required',
           })}
@@ -58,14 +60,17 @@ export default function VerifyCodeForm() {
       </div>
 
       <p className="mb-5 me-2 text-end">
-        Didn't receive a code?{' '}
-        <Link href="/forgot-password" className="font-medium text-brand">
-          Resend.
+        {t('didnt-receive-code')}{' '}
+        <Link
+          href="/forgot-password"
+          className="font-medium text-brand hover:underline"
+        >
+          {t('resend')}
         </Link>
       </p>
 
       <Button disabled={isSubmitting} variant="brand" size="form">
-        {isSubmitting ? 'Verifing code...' : 'Verify code'}
+        {isSubmitting ? t('loading') : t('verify-code')}
       </Button>
     </form>
   );

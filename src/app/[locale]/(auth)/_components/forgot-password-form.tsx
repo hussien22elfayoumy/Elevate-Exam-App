@@ -15,8 +15,11 @@ import InputError from './input-error';
 import { forgotPassword } from '../_actions/auth.action';
 import { toast } from '@/hooks/use-toast';
 import { Link } from '@/i18n/navigation';
+import { useTranslations } from 'next-intl';
 
 export default function ForgotPasswordForm() {
+  const t = useTranslations();
+
   const {
     handleSubmit,
     register,
@@ -56,7 +59,7 @@ export default function ForgotPasswordForm() {
           className="h-12 rounded-lg"
           type="email"
           id="email"
-          placeholder="Email "
+          placeholder={t('email')}
           fieldError={errors.email}
           {...register('email')}
         />
@@ -65,14 +68,14 @@ export default function ForgotPasswordForm() {
       </div>
 
       <p className="mb-5 me-2 text-end">
-        Remeber your password?{' '}
-        <Link href="/signin" className="font-medium text-brand">
-          Login
+        {t('remember-password')}{' '}
+        <Link href="/signin" className="font-medium text-brand hover:underline">
+          {t('sign-in')}
         </Link>
       </p>
 
       <Button disabled={isSubmitting} variant="brand" size="form">
-        {isSubmitting ? 'Sending code...' : 'Reset Password'}
+        {isSubmitting ? t('loading') : t('reset-password')}
       </Button>
     </form>
   );

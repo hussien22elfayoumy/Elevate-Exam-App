@@ -1,7 +1,7 @@
 'use client';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -10,9 +10,11 @@ import { signup } from '../_actions/auth.action';
 import { toast } from '@/hooks/use-toast';
 import InputError from './input-error';
 import { APIToastError } from '@/lib/utils/api-toast-error';
-import { Link } from '@/i18n/navigation';
+import { Link, useRouter } from '@/i18n/navigation';
 
 export default function SignupForm() {
+  const t = useTranslations();
+
   const {
     register,
     handleSubmit,
@@ -57,7 +59,7 @@ export default function SignupForm() {
           className="h-12 rounded-lg"
           type="text"
           id="username"
-          placeholder="User name"
+          placeholder={t('user-name')}
           fieldError={errors.username}
           {...register('username')}
         />
@@ -70,7 +72,7 @@ export default function SignupForm() {
           className="h-12 rounded-lg"
           type="text"
           id="firstName"
-          placeholder="First Name"
+          placeholder={t('first-name')}
           fieldError={errors.firstName}
           {...register('firstName')}
         />
@@ -84,7 +86,7 @@ export default function SignupForm() {
           className="h-12 rounded-lg"
           type="text"
           id="lastName"
-          placeholder="Last Name"
+          placeholder={t('last-name')}
           fieldError={errors.lastName}
           {...register('lastName')}
         />
@@ -98,7 +100,7 @@ export default function SignupForm() {
           className="h-12 rounded-lg"
           type="email"
           id="email"
-          placeholder="Email "
+          placeholder={t('email')}
           fieldError={errors.email}
           {...register('email')}
         />
@@ -110,9 +112,9 @@ export default function SignupForm() {
         <Input
           autoComplete="tel"
           className="h-12 rounded-lg"
-          type="tel"
+          type="text"
           id="phone"
-          placeholder="Phone number"
+          placeholder={t('phone-number')}
           fieldError={errors.phone}
           {...register('phone')}
         />
@@ -125,7 +127,7 @@ export default function SignupForm() {
           className="h-12 rounded-lg"
           type="password"
           id="password"
-          placeholder="Password"
+          placeholder={t('password')}
           fieldError={errors.password}
           {...register('password')}
         />
@@ -138,7 +140,7 @@ export default function SignupForm() {
           className="h-12 rounded-lg"
           type="password"
           id="confirmPassword"
-          placeholder="Confirm password "
+          placeholder={t('confirm-password')}
           fieldError={errors.rePassword}
           {...register('rePassword')}
         />
@@ -146,14 +148,14 @@ export default function SignupForm() {
       </div>
 
       <p className="mb-5 me-2 text-end">
-        Alrady have an account?{' '}
-        <Link href="/signin" className="font-medium text-brand">
-          Login
+        {t('have-account')}{' '}
+        <Link href="/signin" className="font-medium text-brand hover:underline">
+          {t('sign-in')}
         </Link>
       </p>
 
       <Button disabled={isSubmitting} variant="brand" size="form">
-        {isSubmitting ? 'Creating Account...' : 'Create Account'}
+        {isSubmitting ? t('loading') : t('sign-up')}
       </Button>
     </form>
   );

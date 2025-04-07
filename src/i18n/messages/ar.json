@@ -2,5 +2,22 @@
   "welcome": "مرحبا بك في",
   "elevate-slogan": "منصة اختبارات البرمجة المثالية.",
   "sign-up": "إنشاء حساب جديد",
-  "sign-in": "تسجيل الدخول"
+  "sign-in": "تسجيل الدخول",
+  "have-account": "لديك حساب بالفعل؟",
+  "continue-with": "أو الإستكمال ب",
+  "user-name": "اسم المستخدم",
+  "confirm-password": "تأكيد كلمة المرور",
+  "password": "كلمة المرور",
+  "phone-number": "رقم الهاتف",
+  "email": "البريد الإلكتروني",
+  "last-name": "اسم العائلة",
+  "first-name": "الإسم الأول",
+  "forgot-password": "نسيت كلمة المرور؟",
+  "loading": "تحميل...",
+  "dont-have-account": "ليس لديك حساب؟",
+  "remember-password": "تذكرت كلمة المرور؟",
+  "reset-password": "إعادة تعيين كلمة المرور",
+  "verify-code": "تأكيد الكود",
+  "resend": "إعادة إرسال",
+  "didnt-receive-code": "لم تستلم الكود؟"
 }

@@ -2,6 +2,7 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { signIn } from 'next-auth/react';
+import { useTranslations } from 'next-intl';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -12,6 +13,8 @@ import { APIToastError } from '@/lib/utils/api-toast-error';
 import { Link } from '@/i18n/navigation';
 
 export default function SigninForm() {
+  const t = useTranslations();
+
   const {
     handleSubmit,
     register,
@@ -60,7 +63,7 @@ export default function SigninForm() {
           className="h-12 rounded-lg"
           type="email"
           id="email"
-          placeholder="Email "
+          placeholder={t('email')}
           fieldError={errors.email}
           {...register('email')}
         />
@@ -71,7 +74,7 @@ export default function SigninForm() {
         href="/forgot-password"
         className="mb-2 me-2 block text-end text-sm text-brand"
       >
-        Forgot your password?
+        {t('forgot-password')}
       </Link>
 
       {/* Password */}
@@ -80,7 +83,7 @@ export default function SigninForm() {
           className="h-12 rounded-lg"
           type="password"
           id="password"
-          placeholder="Password"
+          placeholder={t('password')}
           fieldError={errors.email}
           {...register('password')}
         />
@@ -88,13 +91,13 @@ export default function SigninForm() {
       </div>
 
       <p className="mb-5 me-2 text-end">
-        Don't have an account?{' '}
-        <Link href="/signup" className="font-medium text-brand">
-          Signup
+        {t('dont-have-account')}{' '}
+        <Link href="/signup" className="font-medium text-brand hover:underline">
+          {t('sign-up')}
         </Link>
       </p>
       <Button disabled={isSubmitting} variant="brand" size="form">
-        {isSubmitting ? 'loading...' : 'Sign in'}
+        {isSubmitting ? t('loading') : t('sign-in')}
       </Button>
     </form>
   );

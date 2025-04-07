@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import SigninForm from '../_components/signin-form';
 import AuthProviders from '../_components/auth-providers';
+import AuthFormHeading from '../_components/auth-form-heading';
 
 export const metadata: Metadata = {
   title: 'Sign in',
@@ -9,7 +10,7 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <>
-      <h2 className="mb-5 text-lg font-semibold">Sign in</h2>
+      <AuthFormHeading message="sign-in" />
       <SigninForm />
       <AuthProviders />
     </>

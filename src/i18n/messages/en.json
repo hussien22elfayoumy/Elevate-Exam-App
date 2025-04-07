@@ -2,5 +2,22 @@
   "welcome": "Welcome To",
   "elevate-slogan": "The Ultimate Programming Quiz Platform.",
   "sign-in": "Sign in",
-  "sign-up": "Sign up"
+  "sign-up": "Sign up",
+  "have-account": "Alrady have an account?",
+  "continue-with": "Or continue with",
+  "user-name": "User name",
+  "first-name": "First Name",
+  "last-name": "Last Name",
+  "email": "Email",
+  "phone-number": "Phone number",
+  "password": "Password",
+  "confirm-password": "Confirm password",
+  "forgot-password": "Forgot your password?",
+  "loading": "loading...",
+  "dont-have-account": "Don't have an account?",
+  "remember-password": "Remeber your password?",
+  "reset-password": "Reset your password",
+  "verify-code": "Verify code",
+  "resend": "Resend.",
+  "didnt-receive-code": "Didn't receive a code?"
 }

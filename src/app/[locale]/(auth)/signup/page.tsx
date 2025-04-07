@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
-import SignupForm from '../_components/signup-form';
+import AuthFormHeading from '../_components/auth-form-heading';
 import AuthProviders from '../_components/auth-providers';
+import SignupForm from '../_components/signup-form';
 
 export const metadata: Metadata = {
   title: 'Sign up',
@@ -9,7 +10,7 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <>
-      <h2 className="mb-5 text-lg font-semibold">Sign up</h2>
+      <AuthFormHeading message="sign-up" />
       <SignupForm />
       <AuthProviders />
     </>

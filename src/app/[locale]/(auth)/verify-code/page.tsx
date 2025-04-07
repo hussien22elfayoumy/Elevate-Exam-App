@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import VerifyCodeForm from '../_components/verify-code-form';
+import AuthFormHeading from '../_components/auth-form-heading';
 
 export const metadata: Metadata = {
   title: 'Verify Code',
@@ -8,7 +9,7 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <>
-      <h2 className="mb-5 text-lg font-semibold">Verify code</h2>
+      <AuthFormHeading message="verify-code" />
       <VerifyCodeForm />
     </>
   );

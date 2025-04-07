@@ -2,7 +2,7 @@
 
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -14,8 +14,11 @@ import {
 import { resetPassword } from '../_actions/auth.action';
 import { toast } from '@/hooks/use-toast';
 import { APIToastError } from '@/lib/utils/api-toast-error';
+import { useRouter } from '@/i18n/navigation';
 
 export default function ResetPasswordForm() {
+  const t = useTranslations();
+
   const {
     register,
     handleSubmit,
@@ -57,7 +60,7 @@ export default function ResetPasswordForm() {
           className="h-12 rounded-lg"
           type="email"
           id="email"
-          placeholder="Email "
+          placeholder={t('email')}
           fieldError={errors.email}
           {...register('email')}
         />
@@ -70,7 +73,7 @@ export default function ResetPasswordForm() {
           className="h-12 rounded-lg"
           type="password"
           id="password"
-          placeholder="Password"
+          placeholder={t('password')}
           fieldError={errors.password}
           {...register('password')}
         />
@@ -83,7 +86,7 @@ export default function ResetPasswordForm() {
           className="h-12 rounded-lg"
           type="password"
           id="confirmPassword"
-          placeholder="Confirm password "
+          placeholder={t('confirm-password')}
           fieldError={errors.rePassword}
           {...register('rePassword')}
         />
@@ -91,7 +94,7 @@ export default function ResetPasswordForm() {
       </div>
 
       <Button disabled={isSubmitting} variant="brand" size="form">
-        {isSubmitting ? 'Resetting password...' : 'Reset password'}
+        {isSubmitting ? t('loading') : t('reset-password')}
       </Button>
     </form>
   );
