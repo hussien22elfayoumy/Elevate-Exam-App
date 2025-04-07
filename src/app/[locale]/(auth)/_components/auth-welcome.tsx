@@ -1,6 +1,5 @@
 'use client';
 import { usePathname } from '@/i18n/navigation';
-import { useLocale } from 'next-intl';
 import Image from 'next/image';
 
 const svgs = {
@@ -20,9 +19,6 @@ type PathName =
 
 export default function AuthWelcome() {
   const pathName = usePathname();
-  const locale = useLocale();
-  console.log('locale', locale);
-  console.log(pathName, 'pahtname');
 
   return (
     <div className="flex h-full flex-col justify-between gap-10">

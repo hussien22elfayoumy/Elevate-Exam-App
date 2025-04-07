@@ -1,4 +1,5 @@
 'use client';
+import LanguagesDropDown from '@/components/common/languages-drop-down';
 import { Link, usePathname } from '@/i18n/navigation';
 import { cn } from '@/lib/utils';
 
@@ -7,7 +8,7 @@ export default function AuthNav() {
 
   return (
     <nav className="mb-10 flex items-center justify-end gap-5 pe-12">
-      <div>English</div>
+      <LanguagesDropDown />
       <Link
         href="/signin"
         className={cn(
