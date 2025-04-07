@@ -5,7 +5,12 @@ const nextConfig = {
   async redirects() {
     return [
       {
-        source: '/',
+        source: '/en',
+        destination: '/dashboard',
+        permanent: true,
+      },
+      {
+        source: '/ar',
         destination: '/dashboard',
         permanent: true,
       },
