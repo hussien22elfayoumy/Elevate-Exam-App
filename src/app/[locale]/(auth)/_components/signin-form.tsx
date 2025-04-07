@@ -21,7 +21,7 @@ export default function SigninForm() {
     reset,
     formState: { errors, isSubmitting },
   } = useForm<SigninFormValues>({
-    resolver: zodResolver(signinSchema),
+    resolver: zodResolver(signinSchema(t)),
     mode: 'onBlur',
     defaultValues: {
       email: '',

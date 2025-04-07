@@ -52,7 +52,7 @@ export default function VerifyCodeForm() {
           fieldError={errors.resetCode}
           placeholder={t('verify-code')}
           {...register('resetCode', {
-            required: 'Reset Code is required',
+            required: t('required', { input: t('verify-code') }),
           })}
         />
 

@@ -20,7 +20,7 @@ export default function SignupForm() {
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<SignupFormValues>({
-    resolver: zodResolver(signupSchame),
+    resolver: zodResolver(signupSchame(t)),
     mode: 'onBlur',
     defaultValues: {
       username: '',

@@ -19,5 +19,14 @@
   "reset-password": "Reset your password",
   "verify-code": "Verify code",
   "resend": "Resend.",
-  "didnt-receive-code": "Didn't receive a code?"
+  "didnt-receive-code": "Didn't receive a code?",
+  "least-3-chars": "{input} must be at least 3 characters",
+  "most-50-chars": "{input} must be at most 50 characters",
+  "required": "{input} is required",
+  "contain-8-chars": "Password must contain at least 8 characters",
+  "contain-one-upper": "Password must contain at least one uppdercase letter",
+  "contain-one-lower": "Password must contain at least one lowercase letter",
+  "contain-one-number": "Password must contain at least one number",
+  "contain-one-special": "Password must contain at least one special character",
+  "passwords-dont-match": "Passwords don't match"
 }

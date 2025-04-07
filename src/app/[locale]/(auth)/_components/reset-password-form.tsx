@@ -24,7 +24,7 @@ export default function ResetPasswordForm() {
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<ResetPasswordFormValues>({
-    resolver: zodResolver(resetPasswordSchema),
+    resolver: zodResolver(resetPasswordSchema(t)),
     mode: 'onBlur',
     defaultValues: {
       email: '',

@@ -25,7 +25,7 @@ export default function ForgotPasswordForm() {
     register,
     formState: { errors, isSubmitting },
   } = useForm<ForgotPasswordFormValues>({
-    resolver: zodResolver(forgotPassowrdSchema),
+    resolver: zodResolver(forgotPassowrdSchema(t)),
     mode: 'onBlur',
     defaultValues: {
       email: '',
