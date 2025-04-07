@@ -1,5 +1,6 @@
 'use client';
 import { usePathname } from '@/i18n/navigation';
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 
 const svgs = {
@@ -19,6 +20,7 @@ type PathName =
 
 export default function AuthWelcome() {
   const pathName = usePathname();
+  const t = useTranslations();
 
   return (
     <div className="flex h-full flex-col justify-between gap-10">
@@ -26,12 +28,10 @@ export default function AuthWelcome() {
         {pathName === '/signin' || pathName === '/signup' ? (
           <>
             <h1 className="text-3xl font-bold tracking-wider md:text-4xl lg:text-5xl">
-              Welcome To <br />
+              {t('welcome')} <br />
               <span className="mt-4 block text-brand-dark">Elevate</span>
             </h1>
-            <p className="mt-5 text-lg font-medium">
-              The Ultimate Programming Quiz Platform.
-            </p>
+            <p className="mt-5 text-lg font-medium">{t('elevate-slogan')}</p>
           </>
         ) : (
           <h1 className="mt-10 text-3xl font-bold leading-[130%] tracking-wider text-brand-dark md:text-4xl lg:text-5xl">

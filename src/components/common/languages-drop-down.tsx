@@ -26,7 +26,7 @@ export default function LanguagesDropDown() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <GrLanguage className="size-6" />
+        <GrLanguage className="mb-1 size-6" />
       </DropdownMenuTrigger>
       <DropdownMenuContent className="bg-my-grey-50">
         {locales.map((loc) => (

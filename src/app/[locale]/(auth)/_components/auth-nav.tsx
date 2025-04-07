@@ -1,10 +1,13 @@
 'use client';
+import { useTranslations } from 'next-intl';
+
 import LanguagesDropDown from '@/components/common/languages-drop-down';
 import { Link, usePathname } from '@/i18n/navigation';
 import { cn } from '@/lib/utils';
 
 export default function AuthNav() {
   const pathName = usePathname();
+  const t = useTranslations();
 
   return (
     <nav className="mb-10 flex items-center justify-end gap-5 pe-12">
@@ -16,7 +19,7 @@ export default function AuthNav() {
           pathName === '/signin' && 'text-brand underline'
         )}
       >
-        Sign in
+        {t('sign-in')}
       </Link>
       <Link
         href="/signup"
@@ -25,7 +28,7 @@ export default function AuthNav() {
           pathName === '/signup' && 'text-brand underline'
         )}
       >
-        Sign up
+        {t('sign-up')}
       </Link>
     </nav>
   );
