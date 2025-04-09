@@ -7,11 +7,13 @@ type DashboardLayoutProps = {
 
 export default function Layout({ children }: DashboardLayoutProps) {
   return (
-    <SidebarProvider>
+    <SidebarProvider dir="ltr" className="bg-brand-light p-4">
       <DashboardSideBar />
       <div className="relative w-full">
-        <SidebarTrigger className="fixed top-2 ms-1" />
-        <main className="h-[1000px] px-5 pt-12">{children}</main>
+        <SidebarTrigger className="fixed top-3 bg-brand-light hover:bg-brand-light/80" />
+        <main className="min-h-screen rounded-2xl bg-my-grey-50 pt-12">
+          {children}
+        </main>
       </div>
     </SidebarProvider>
   );

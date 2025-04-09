@@ -1,10 +1,9 @@
 'use client';
-import { LayoutDashboard } from 'lucide-react';
+import { LayoutDashboard, BookCheck, History } from 'lucide-react';
 
 import { SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { cn } from '@/lib/utils';
 import { Link, usePathname } from '@/i18n/navigation';
-
 const items = [
   {
     title: 'Dashboard',
@@ -12,14 +11,14 @@ const items = [
     icon: LayoutDashboard,
   },
   {
-    title: 'Exams',
-    href: '/dashboard/exams',
-    icon: LayoutDashboard,
+    title: 'All quizes',
+    href: '/dashboard/quizes',
+    icon: BookCheck,
   },
   {
     title: 'Quiz History',
     href: '/dashboard/quiz-history',
-    icon: LayoutDashboard,
+    icon: History,
   },
 ];
 
@@ -33,7 +32,7 @@ export default function DashboardSidebarLinks() {
           <SidebarMenuButton asChild>
             <Link
               className={cn(
-                'block px-3 py-5 text-my-grey-800 transition-all hover:!bg-brand hover:text-brand hover:text-white',
+                'block px-3 py-5 font-medium text-my-grey-800 transition-all hover:!bg-brand hover:text-brand hover:text-white',
                 pathName === item.href && 'bg-brand text-white'
               )}
               href={item.href}

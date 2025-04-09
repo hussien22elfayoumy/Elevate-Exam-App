@@ -1,3 +1,9 @@
+import Diplomas from './_components/diplomas';
+
 export default function Home() {
-  return <div>subjects</div>;
+  return (
+    <>
+      <Diplomas />
+    </>
+  );
 }
