@@ -1,5 +1,10 @@
 import React from 'react';
+import Quizes from '../_components/quizes';
 
 export default function Page() {
-  return <div>All quizes page</div>;
+  return (
+    <>
+      <Quizes />
+    </>
+  );
 }
