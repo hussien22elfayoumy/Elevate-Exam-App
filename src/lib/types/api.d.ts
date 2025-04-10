@@ -15,3 +15,22 @@ declare type APIRequestOptions = {
   body?: object;
   headers?: HeadersInit | undefined;
 };
+
+// Subjects api types
+declare type Subject = {
+  _id: string;
+  name: string;
+  icon: string;
+  createdAt: string;
+};
+
+type Metadata = {
+  currentPage: number;
+  numberOfPages: number;
+  limit: number;
+};
+
+declare type SubjectsResponse = {
+  metadata: Metadata;
+  subjects: Subject[];
+};

@@ -1,9 +1,9 @@
-import Diplomas from './_components/diplomas';
+import Subjects from './_components/subjects';
 
 export default function Home() {
   return (
     <>
-      <Diplomas />
+      <Subjects />
     </>
   );
 }
