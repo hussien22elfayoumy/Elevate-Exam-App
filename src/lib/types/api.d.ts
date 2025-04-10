@@ -16,6 +16,11 @@ declare type APIRequestOptions = {
   headers?: HeadersInit | undefined;
 };
 
+type Metadata = {
+  currentPage: number;
+  numberOfPages: number;
+  limit: number;
+};
 // Subjects api types
 declare type Subject = {
   _id: string;
@@ -24,13 +29,23 @@ declare type Subject = {
   createdAt: string;
 };
 
-type Metadata = {
-  currentPage: number;
-  numberOfPages: number;
-  limit: number;
-};
-
 declare type SubjectsResponse = {
   metadata: Metadata;
   subjects: Subject[];
+};
+
+// Quizes api types
+declare type Quiz = {
+  _id: string;
+  title: string;
+  duration: number;
+  subject: string;
+  numberOfQuestions: number;
+  active: boolean;
+  createdAt: string;
+};
+
+declare type QuizsResponse = {
+  metadata: Metadata;
+  exams: Quiz[];
 };
