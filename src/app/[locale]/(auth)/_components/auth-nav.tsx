@@ -3,7 +3,7 @@ import { useTranslations } from 'next-intl';
 
 import LanguagesDropDown from '@/components/common/languages-drop-down';
 import { Link, usePathname } from '@/i18n/navigation';
-import { cn } from '@/lib/utils';
+import { cn } from '@/lib/utils/cn';
 
 export default function AuthNav() {
   const pathName = usePathname();

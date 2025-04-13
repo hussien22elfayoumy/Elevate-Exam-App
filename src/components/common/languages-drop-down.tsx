@@ -11,7 +11,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useLocale } from 'next-intl';
-import { cn } from '@/lib/utils';
+import { cn } from '@/lib/utils/cn';
 
 const mappdLocales = {
   en: 'English',

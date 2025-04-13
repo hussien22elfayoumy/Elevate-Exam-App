@@ -11,7 +11,7 @@ export default function Layout({ children }: DashboardLayoutProps) {
       <DashboardSideBar />
       <div className="relative w-full">
         <SidebarTrigger className="fixed top-3 bg-brand-light hover:bg-brand-light/80" />
-        <main className="min-h-screen rounded-2xl bg-my-grey-50 pt-12">
+        <main className="min-h-screen rounded-2xl bg-my-grey-50 px-8 pt-12">
           {children}
         </main>
       </div>

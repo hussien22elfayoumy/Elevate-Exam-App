@@ -2,7 +2,7 @@
 import { LayoutDashboard, BookCheck, History } from 'lucide-react';
 
 import { SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
-import { cn } from '@/lib/utils';
+import { cn } from '@/lib/utils/cn';
 import { Link, usePathname } from '@/i18n/navigation';
 const items = [
   {
