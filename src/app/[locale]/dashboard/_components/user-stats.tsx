@@ -23,12 +23,13 @@ const userStats = [
 export default function UserStats() {
   return (
     <>
-      <div className="relative size-[220px] overflow-hidden rounded-xl">
+      <div className="relative h-[200px] w-full overflow-hidden rounded-xl md:size-[220px]">
         <Image
           src="/assets/test.jpg"
           fill
           alt="html image"
           className="object-cover"
+          sizes="35vw"
         />
       </div>
 
@@ -36,10 +37,10 @@ export default function UserStats() {
         <h1 className="text-3xl font-semibold text-brand">Hussien Elfayoumy</h1>
         <p className="pt-1 font-medium text-my-grey-500">Frontend Developer</p>
         <div className="progress pt-5">
-          <Progress value={25} />
+          <Progress value={25} className="" />
         </div>
 
-        <div className="status mt-8 flex items-center gap-10 text-my-grey-500">
+        <div className="status mt-8 flex flex-wrap items-center gap-10 text-my-grey-500">
           {userStats.map((state) => (
             <div key={state.subTitle} className="flex items-center gap-2">
               <state.icon className="size-14 rounded-xl bg-my-grey-50 p-3 text-brand shadow-sm" />

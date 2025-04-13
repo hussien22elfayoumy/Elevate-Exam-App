@@ -11,7 +11,7 @@ export default function Home() {
         <Search />
       </section>
 
-      <section className="mb-8 flex items-center gap-8 rounded-xl bg-my-grey-150 p-5 shadow-lg shadow-my-grey-150">
+      <section className="mb-8 flex flex-col items-center gap-8 rounded-xl bg-my-grey-150 p-5 shadow-lg shadow-my-grey-150 md:flex-row">
         <UserStats />
       </section>
 

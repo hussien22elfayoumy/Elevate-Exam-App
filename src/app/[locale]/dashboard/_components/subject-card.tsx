@@ -12,6 +12,7 @@ export default function SubjectCard({ subject }: SubjectCardProps) {
         fill
         className="object-cover"
         alt="Auth image"
+        sizes="35vw"
       />
       <figcaption className="absolute inset-x-4 bottom-4 rounded-xl bg-brand/60 p-4 text-center text-white backdrop-blur-sm">
         <p className="font-medium tracking-wider">{subject.name}</p>
