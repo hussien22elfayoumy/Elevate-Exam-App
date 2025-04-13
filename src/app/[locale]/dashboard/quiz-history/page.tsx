@@ -1,5 +1,9 @@
-import React from 'react';
+import QuizHistroyList from './_components/quiz-history-list';
 
 export default function Page() {
-  return <div>Quiz history</div>;
+  return (
+    <>
+      <QuizHistroyList />
+    </>
+  );
 }

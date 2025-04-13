@@ -6,14 +6,25 @@ type QuizCardProps = {
   quiz: Quiz;
 };
 
+const icons = {
+  html: '/assets/html.svg',
+  css: '/assets/css.svg',
+  javascript: '/assets/javascript.svg',
+  react: '/assets/react.svg',
+};
+
+type Icons = 'html' | 'css' | 'javascript' | 'react';
+
 export default function QuizCard({ quiz }: QuizCardProps) {
+  const mappedName = quiz.title.split(' ')[0].toLocaleLowerCase();
+
   return (
     <div className="flex items-center gap-4 rounded-lg bg-brand-light/60 p-4 shadow-sm">
       <div className="relative size-[85px]">
         <Image
-          src="/assets/test.jpg"
+          src={icons[mappedName as Icons] || '/assets/test.jpg'}
           fill
-          alt="html image"
+          alt={quiz.title}
           className="object-cover"
         />
       </div>
