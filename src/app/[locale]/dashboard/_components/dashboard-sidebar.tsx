@@ -1,12 +1,16 @@
+import { TbLogout2 } from 'react-icons/tb';
+
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
   SidebarMenu,
 } from '@/components/ui/sidebar';
 import DashboardSidebarLinks from './dashboard-sidebar-links';
+import LogoutBtn from './logout-btn';
 
 // Menu items.
 
@@ -25,6 +29,9 @@ export default function DashboardSideBar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+      <SidebarFooter className="bg-brand-light p-4">
+        <LogoutBtn />
+      </SidebarFooter>
     </Sidebar>
   );
 }
