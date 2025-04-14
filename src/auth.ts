@@ -44,7 +44,6 @@ export const authOptions: NextAuthOptions = {
     },
     session: ({ session, token }) => {
       session.user = token?.user;
-      session.accessToken = token?.accessToken;
 
       return session;
     },
