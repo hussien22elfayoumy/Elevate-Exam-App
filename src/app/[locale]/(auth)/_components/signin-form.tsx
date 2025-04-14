@@ -13,8 +13,10 @@ import { APIToastError } from '@/lib/utils/api-toast-error';
 import { Link } from '@/i18n/navigation';
 
 export default function SigninForm() {
+  // Translations
   const t = useTranslations();
 
+  // React hook form
   const {
     handleSubmit,
     register,
@@ -29,6 +31,7 @@ export default function SigninForm() {
     },
   });
 
+  // Signin form submit handler
   async function onSubmit(values: SigninFormValues) {
     try {
       const res = await signIn('credentials', {
@@ -90,12 +93,15 @@ export default function SigninForm() {
         <InputError inputField={errors.password} />
       </div>
 
+      {/* Don't have account */}
       <p className="mb-5 me-2 text-end">
         {t('dont-have-account')}{' '}
         <Link href="/signup" className="font-medium text-brand hover:underline">
           {t('sign-up')}
         </Link>
       </p>
+
+      {/* Submit form */}
       <Button disabled={isSubmitting} variant="brand" size="form">
         {isSubmitting ? t('loading') : t('sign-in')}
       </Button>

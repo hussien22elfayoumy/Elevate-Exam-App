@@ -13,8 +13,13 @@ import { APIToastError } from '@/lib/utils/api-toast-error';
 import { Link, useRouter } from '@/i18n/navigation';
 
 export default function SignupForm() {
+  // Navigation
+  const router = useRouter();
+
+  // Translations
   const t = useTranslations();
 
+  // React hook form
   const {
     register,
     handleSubmit,
@@ -32,8 +37,8 @@ export default function SignupForm() {
       phone: '',
     },
   });
-  const router = useRouter();
 
+  // Signup form submit handler
   async function onSubmit(values: SignupFormValues) {
     try {
       const data = await signup(values);
@@ -147,6 +152,7 @@ export default function SignupForm() {
         <InputError inputField={errors.rePassword} />
       </div>
 
+      {/* Aleradt have account */}
       <p className="mb-5 me-2 text-end">
         {t('have-account')}{' '}
         <Link href="/signin" className="font-medium text-brand hover:underline">
@@ -154,6 +160,7 @@ export default function SignupForm() {
         </Link>
       </p>
 
+      {/* Form submit */}
       <Button disabled={isSubmitting} variant="brand" size="form">
         {isSubmitting ? t('loading') : t('sign-up')}
       </Button>

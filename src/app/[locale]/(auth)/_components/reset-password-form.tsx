@@ -1,5 +1,4 @@
 'use client';
-
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslations } from 'next-intl';
@@ -17,8 +16,13 @@ import { APIToastError } from '@/lib/utils/api-toast-error';
 import { useRouter } from '@/i18n/navigation';
 
 export default function ResetPasswordForm() {
+  // Navigation
+  const router = useRouter();
+
+  // Translations
   const t = useTranslations();
 
+  // React hook form
   const {
     register,
     handleSubmit,
@@ -33,8 +37,7 @@ export default function ResetPasswordForm() {
     },
   });
 
-  const router = useRouter();
-
+  // Reset password form submit handler
   async function onSubmit(values: ResetPasswordFormValues) {
     try {
       const data = await resetPassword(values);
@@ -93,6 +96,7 @@ export default function ResetPasswordForm() {
         <InputError inputField={errors.rePassword} />
       </div>
 
+      {/* Submit form */}
       <Button disabled={isSubmitting} variant="brand" size="form">
         {isSubmitting ? t('loading') : t('reset-password')}
       </Button>

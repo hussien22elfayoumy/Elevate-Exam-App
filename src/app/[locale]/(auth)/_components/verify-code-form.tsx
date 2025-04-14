@@ -11,8 +11,13 @@ import { APIToastError } from '@/lib/utils/api-toast-error';
 import { Link, useRouter } from '@/i18n/navigation';
 
 export default function VerifyCodeForm() {
+  // Navigation
+  const router = useRouter();
+
+  // Translations
   const t = useTranslations();
 
+  // React Hook Form
   const {
     handleSubmit,
     register,
@@ -23,8 +28,7 @@ export default function VerifyCodeForm() {
     },
   });
 
-  const router = useRouter();
-
+  // Verify code form submit handler
   async function onSubmit(values: { resetCode: string }) {
     try {
       const data = await verifyResetCode(values);
@@ -59,6 +63,7 @@ export default function VerifyCodeForm() {
         <InputError inputField={errors.resetCode} />
       </div>
 
+      {/* Didn't receive code */}
       <p className="mb-5 me-2 text-end">
         {t('didnt-receive-code')}{' '}
         <Link
@@ -69,6 +74,7 @@ export default function VerifyCodeForm() {
         </Link>
       </p>
 
+      {/* form submit */}
       <Button disabled={isSubmitting} variant="brand" size="form">
         {isSubmitting ? t('loading') : t('verify-code')}
       </Button>

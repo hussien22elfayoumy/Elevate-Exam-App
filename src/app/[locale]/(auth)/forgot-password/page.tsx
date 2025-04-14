@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+
 import ForgotPasswordForm from '../_components/forgot-password-form';
 import AuthFormHeading from '../_components/auth-form-heading';
 

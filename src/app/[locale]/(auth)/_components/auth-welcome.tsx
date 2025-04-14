@@ -1,7 +1,8 @@
 'use client';
-import { usePathname } from '@/i18n/navigation';
-import { useTranslations } from 'next-intl';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
+
+import { usePathname } from '@/i18n/navigation';
 
 const svgs = {
   '/signin': '/assets/login.svg',
@@ -19,11 +20,15 @@ type PathName =
   | '/verify-code';
 
 export default function AuthWelcome() {
+  // pathName
   const pathName = usePathname();
+
+  //Translations
   const t = useTranslations();
 
   return (
     <div className="flex h-full flex-col justify-between gap-10">
+      {/* Welcome Header */}
       <header>
         {pathName === '/signin' || pathName === '/signup' ? (
           <>
@@ -39,6 +44,7 @@ export default function AuthWelcome() {
           </h1>
         )}
       </header>
+      {/* Welcome Image */}
       <div className="relative h-2/3 w-full">
         <Image
           src={svgs[pathName as PathName]}
