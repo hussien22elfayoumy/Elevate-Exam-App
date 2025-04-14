@@ -6,13 +6,19 @@ export default async function Quizes() {
   const data = await getQuizes();
 
   return (
-    <section className="px-4">
-      <h2 className="mb-6 text-2xl font-medium text-brand">All Quizes</h2>
-      <div className="space-y-4">
-        {data.exams.map((quiz) => (
-          <QuizCard key={quiz._id} quiz={quiz} />
-        ))}
-      </div>
-    </section>
+    <>
+      {/* all quizes */}
+      {data.exams.length > 0 ? (
+        <div className="space-y-4">
+          {data.exams.map((quiz) => (
+            <QuizCard key={quiz._id} quiz={quiz} />
+          ))}
+        </div>
+      ) : (
+        <p className="text-center text-lg font-semibold text-red-500">
+          No Quizes found
+        </p>
+      )}
+    </>
   );
 }

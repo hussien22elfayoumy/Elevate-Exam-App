@@ -5,9 +5,10 @@ import { Button } from '@/components/ui/button';
 export default function QuizHistoryCard() {
   return (
     <div className="flex items-center gap-4 rounded-lg bg-brand-light/60 p-4 shadow-sm">
+      {/* Quiz Image */}
       <div className="relative size-[85px]">
         <Image
-          src="/assets/test.jpg"
+          src="/assets/html.svg"
           fill
           alt="html image"
           className="object-cover"
