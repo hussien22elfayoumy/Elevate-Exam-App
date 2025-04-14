@@ -1,12 +1,14 @@
 'use client';
+import { signOut } from 'next-auth/react';
 import { TbLogout2 } from 'react-icons/tb';
 
 import { Button } from '@/components/ui/button';
-import { signOut } from 'next-auth/react';
 import { useRouter } from '@/i18n/navigation';
 
 export default function LogoutBtn() {
+  // Navigation
   const router = useRouter();
+
   return (
     <Button
       variant="destructive"

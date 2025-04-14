@@ -1,6 +1,7 @@
-import { Progress } from '@/components/ui/progress';
 import Image from 'next/image';
 import { FaFlag, FaBolt, FaCircleCheck } from 'react-icons/fa6';
+
+import { Progress } from '@/components/ui/progress';
 
 const userStats = [
   {
@@ -24,6 +25,7 @@ export default function UserStats() {
   return (
     <>
       <div className="relative h-[200px] w-full overflow-hidden rounded-xl md:size-[220px]">
+        {/* User Image */}
         <Image
           src="/assets/test.jpg"
           fill
@@ -34,12 +36,18 @@ export default function UserStats() {
       </div>
 
       <div className="flex-1">
+        {/* User Name */}
         <h1 className="text-3xl font-semibold text-brand">Hussien Elfayoumy</h1>
+
+        {/* User Job */}
         <p className="pt-1 font-medium text-my-grey-500">Frontend Developer</p>
+
+        {/* Progress so far */}
         <div className="progress pt-5">
           <Progress value={25} className="" />
         </div>
 
+        {/* User stats and numbers */}
         <div className="status mt-8 flex flex-wrap items-center gap-10 text-my-grey-500">
           {userStats.map((state) => (
             <div key={state.subTitle} className="flex items-center gap-2">

@@ -4,7 +4,8 @@ import { LayoutDashboard, BookCheck, History } from 'lucide-react';
 import { SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { cn } from '@/lib/utils/cn';
 import { Link, usePathname } from '@/i18n/navigation';
-const items = [
+
+const sidebarLinks = [
   {
     title: 'Dashboard',
     href: '/dashboard',
@@ -23,11 +24,12 @@ const items = [
 ];
 
 export default function DashboardSidebarLinks() {
+  // Navigation
   const pathName = usePathname();
 
   return (
     <>
-      {items.map((item) => (
+      {sidebarLinks.map((item) => (
         <SidebarMenuItem key={item.title}>
           <SidebarMenuButton asChild>
             <Link
