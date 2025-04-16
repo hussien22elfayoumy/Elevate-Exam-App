@@ -6,6 +6,7 @@ import type { Metadata } from 'next';
 
 import Providers from '@/components/providers';
 import { poppins } from '@/fonts/google-fonts';
+import { Toaster } from '@/components/ui/toaster';
 
 export const metadata: Metadata = {
   title: {
@@ -30,7 +31,10 @@ export default function LocaleLayout({
       <body
         className={`${poppins.className} bg-my-grey-50 text-my-grey-800 antialiased`}
       >
-        <Providers>{children}</Providers>
+        <Providers>
+          {children}
+          <Toaster />
+        </Providers>
       </body>
     </html>
   );

@@ -6,8 +6,8 @@ import {
   useTimeZone,
 } from 'next-intl';
 
-import { Toaster } from '@/components/ui/toaster';
 import NextAuthProvider from './components/next-auth.provider';
+import ReactQueryProvider from './components/react-query.provider';
 
 type ProivderProps = {
   children: React.ReactNode;
@@ -28,8 +28,7 @@ export default function Providers({ children }: ProivderProps) {
         now={now}
         timeZone={timeZone}
       >
-        {children}
-        <Toaster />
+        <ReactQueryProvider>{children}</ReactQueryProvider>
       </NextIntlClientProvider>
     </NextAuthProvider>
   );
