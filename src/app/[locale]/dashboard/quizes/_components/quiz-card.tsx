@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import React from 'react';
+import QuizFormDialog from './quiz-form-dialog';
 
 type QuizCardProps = {
   quiz: Quiz;
@@ -42,9 +43,7 @@ export default function QuizCard({ quiz }: QuizCardProps) {
         <p className="text-sm font-medium">{quiz.duration} minutes</p>
 
         {/* Start the quiz */}
-        <Button variant="brand" size="sm" className="rounded-full px-6">
-          Start
-        </Button>
+        <QuizFormDialog quiz={quiz} />
       </div>
     </div>
   );
