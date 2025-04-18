@@ -7,14 +7,23 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { LucideAlarmClock } from 'lucide-react';
 import QuizForm from './quiz-form';
+import { apiRequest } from '@/lib/utils/api-request';
+import { getAccessToken } from '@/lib/utils/get-token';
 
 type QuizFormDialogProps = {
   quiz: Quiz;
 };
 
-export default function QuizFormDialog({ quiz }: QuizFormDialogProps) {
+export default async function QuizFormDialog({ quiz }: QuizFormDialogProps) {
+  const accessToken = await getAccessToken();
+  const questions = await apiRequest<QuestionsResponse>({
+    endpoint: `questions?exam=${quiz._id}`,
+    method: 'GET',
+    headers: { token: accessToken },
+  });
+
+  console.log(questions);
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -28,7 +37,7 @@ export default function QuizFormDialog({ quiz }: QuizFormDialogProps) {
           <DialogDescription />
         </DialogHeader>
 
-        <QuizForm quiz={quiz} />
+        <QuizForm quiz={quiz} questions={questions.questions} />
       </DialogContent>
     </Dialog>
   );

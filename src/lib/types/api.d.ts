@@ -49,3 +49,25 @@ declare type QuizsResponse = {
   metadata: Metadata;
   exams: Quiz[];
 };
+
+// Question api types
+type Answer = {
+  answer: string;
+  key: string;
+};
+
+type Question = {
+  answers: Answer[];
+  type: 'single_choice' | 'multiple_choice';
+  _id: string;
+  question: string;
+  correct: string;
+  subject: Subject;
+  exam: Quiz;
+  createdAt: string;
+};
+
+declare type QuestionsResponse = {
+  metadata: Metadata;
+  questions: Question[];
+};
