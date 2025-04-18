@@ -7,23 +7,16 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
+import { getQuizQuestions } from '../_utils/qut-quiz-questions';
 import QuizForm from './quiz-form';
-import { apiRequest } from '@/lib/utils/api-request';
-import { getAccessToken } from '@/lib/utils/get-token';
 
 type QuizFormDialogProps = {
   quiz: Quiz;
 };
 
 export default async function QuizFormDialog({ quiz }: QuizFormDialogProps) {
-  const accessToken = await getAccessToken();
-  const questions = await apiRequest<QuestionsResponse>({
-    endpoint: `questions?exam=${quiz._id}`,
-    method: 'GET',
-    headers: { token: accessToken },
-  });
+  const questions = await getQuizQuestions(quiz._id);
 
-  console.log(questions.questions);
   return (
     <Dialog>
       <DialogTrigger asChild>
