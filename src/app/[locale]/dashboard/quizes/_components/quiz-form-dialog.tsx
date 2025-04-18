@@ -23,7 +23,7 @@ export default async function QuizFormDialog({ quiz }: QuizFormDialogProps) {
     headers: { token: accessToken },
   });
 
-  console.log(questions);
+  console.log(questions.questions);
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -37,7 +37,13 @@ export default async function QuizFormDialog({ quiz }: QuizFormDialogProps) {
           <DialogDescription />
         </DialogHeader>
 
-        <QuizForm quiz={quiz} questions={questions.questions} />
+        {questions.questions.length > 0 ? (
+          <QuizForm quiz={quiz} questions={questions.questions} />
+        ) : (
+          <p className="text-center text-lg text-red-500">
+            No Quesions founded
+          </p>
+        )}
       </DialogContent>
     </Dialog>
   );

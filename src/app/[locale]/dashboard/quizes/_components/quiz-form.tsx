@@ -4,26 +4,65 @@ import { LucideAlarmClock } from 'lucide-react';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Button } from '@/components/ui/button';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 type QuizFormProps = {
   quiz: Quiz;
   questions: Question[];
 };
 
+const questionsFormSchema = z.object({
+  answers: z.array(
+    z.object({
+      questionId: z.string(),
+      correct: z.string(),
+    })
+  ),
+
+  // time: z.number(),
+});
+
+type QuestionFormVelues = z.infer<typeof questionsFormSchema>;
+
 export default function QuizForm({ quiz, questions }: QuizFormProps) {
   // State
   const [step, setStep] = useState(0);
+  const [userAnswer, setUserAnswer] = useState('');
 
   // Variables
-  const currentQuestion = questions[step]?.question;
+  const currentQuestion = questions[step];
   const currentQuestionAnswers = questions[step].answers;
 
   const isLastQuestion = step === questions.length - 1;
   const isFirstQuestion = step === 0;
 
+  // Form
+  const { register, handleSubmit, getValues, control, setValue } = useForm({
+    resolver: zodResolver(questionsFormSchema),
+    defaultValues: {
+      answers: questions.map(() => ({
+        questionId: '',
+        correct: '',
+      })),
+    },
+  });
+
+  // function
+
+  function onSubmit(values: QuestionFormVelues) {
+    console.log(values);
+  }
+
+  useEffect(() => {
+    const answer = getValues(`answers.${step}.correct`);
+    setUserAnswer(answer);
+  }, [step, getValues]);
+
   return (
-    <div>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <div className="mb-2 flex justify-between">
         <p className="text-brand">
           Question {step + 1} Of {questions.length}
@@ -38,22 +77,39 @@ export default function QuizForm({ quiz, questions }: QuizFormProps) {
         className="mb-6"
       />
 
-      <h3 className="mb-2 text-lg font-medium">{currentQuestion}</h3>
+      <h3 className="mb-2 text-lg font-medium">{currentQuestion.question}</h3>
 
-      <RadioGroup>
-        {currentQuestionAnswers.map((answer) => (
-          <div
-            key={answer.answer}
-            className="flex items-center space-x-2 rounded-xl bg-brand-light px-4 py-5"
+      <Controller
+        name={`answers.${step}`}
+        control={control}
+        render={({ field }) => (
+          <RadioGroup
+            value={userAnswer}
+            name={currentQuestion._id}
+            onValueChange={(value) => {
+              setUserAnswer(value);
+              field.onChange({
+                questionId: currentQuestion._id,
+                correct: value,
+              });
+            }}
           >
-            <RadioGroupItem value={answer.key} id={answer.key} />
-            <Label htmlFor={answer.key}>{answer.answer}</Label>
-          </div>
-        ))}
-      </RadioGroup>
+            {currentQuestionAnswers.map((answer) => (
+              <div
+                key={answer.answer}
+                className="flex items-center space-x-2 rounded-xl bg-brand-light px-4 py-5"
+              >
+                <RadioGroupItem value={answer.key} id={answer.key} />
+                <Label htmlFor={answer.key}>{answer.answer}</Label>
+              </div>
+            ))}
+          </RadioGroup>
+        )}
+      />
 
       <div className="mt-6 flex items-start gap-2">
         <Button
+          type="button"
           disabled={isFirstQuestion}
           onClick={() => {
             setStep((prevStep) => prevStep - 1);
@@ -63,17 +119,21 @@ export default function QuizForm({ quiz, questions }: QuizFormProps) {
         >
           Back
         </Button>
+
         <Button
-          disabled={isLastQuestion}
+          type={step < questions.length - 1 ? 'button' : 'submit'}
+          disabled={!userAnswer}
           onClick={() => {
+            if (step === questions.length - 1) return;
             setStep((prevStep) => prevStep + 1);
+            setUserAnswer('');
           }}
           variant="brand"
           className="h-10 rounded-full"
         >
-          Next
+          {isLastQuestion ? 'Submit' : 'Next'}
         </Button>
       </div>
-    </div>
+    </form>
   );
 }
