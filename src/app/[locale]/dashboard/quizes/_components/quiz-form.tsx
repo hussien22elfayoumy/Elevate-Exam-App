@@ -1,6 +1,5 @@
 'use client';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { LucideAlarmClock } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 
@@ -12,6 +11,7 @@ import {
   questionsFormSchema,
 } from '@/lib/schemas/quiz-questions.schema';
 import { cn } from '@/lib/utils/cn';
+import QuizTimer from './quiz-timer';
 
 type QuizFormProps = {
   quiz: Quiz;
@@ -22,12 +22,11 @@ export default function QuizForm({ quiz, questions }: QuizFormProps) {
   // State
   const [step, setStep] = useState(0);
   const [userAnswer, setUserAnswer] = useState('');
+  const [timer, setTimer] = useState(new Date(0).setMinutes(quiz.duration));
 
   // Variables
   const currentQuestion = questions[step];
-  const currentQuestionAnswers = questions[step].answers;
   const isLastQuestion = step === questions.length - 1;
-  const isFirstQuestion = step === 0;
 
   // Form Register
   const { handleSubmit, getValues, control } = useForm<QuestionFormVelues>({
@@ -42,7 +41,9 @@ export default function QuizForm({ quiz, questions }: QuizFormProps) {
 
   // functions
   function onSubmit(values: QuestionFormVelues) {
-    console.log(values);
+    const userQuizTime = quiz.duration - new Date(timer).getMinutes();
+    console.log(values, userQuizTime);
+    setTimer(0);
   }
 
   // Effects
@@ -60,10 +61,7 @@ export default function QuizForm({ quiz, questions }: QuizFormProps) {
         </p>
 
         {/* Quiz Timer */}
-        <p className="flex items-center gap-1">
-          <LucideAlarmClock className="mb-1 size-5 text-brand" />
-          <span className="text-green-500">{quiz.duration}</span>
-        </p>
+        <QuizTimer duration={quiz.duration} timer={timer} setTimer={setTimer} />
       </div>
 
       {/* Nubmer of Quesiton visualize */}
@@ -101,7 +99,7 @@ export default function QuizForm({ quiz, questions }: QuizFormProps) {
               });
             }}
           >
-            {currentQuestionAnswers.map((answer) => (
+            {currentQuestion.answers.map((answer) => (
               <div
                 key={answer.answer}
                 className="flex items-center space-x-2 rounded-xl bg-brand-light px-4"
@@ -123,7 +121,7 @@ export default function QuizForm({ quiz, questions }: QuizFormProps) {
         {/* Prev btn */}
         <Button
           type="button"
-          disabled={isFirstQuestion}
+          disabled={step === 0}
           onClick={() => {
             setStep((prevStep) => prevStep - 1);
           }}
