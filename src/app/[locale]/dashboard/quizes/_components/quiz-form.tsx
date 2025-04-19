@@ -6,12 +6,12 @@ import { Controller, useForm } from 'react-hook-form';
 
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
-import { Progress } from '@/components/ui/progress';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import {
   QuestionFormVelues,
   questionsFormSchema,
 } from '@/lib/schemas/quiz-questions.schema';
+import { cn } from '@/lib/utils/cn';
 
 type QuizFormProps = {
   quiz: Quiz;
@@ -67,13 +67,22 @@ export default function QuizForm({ quiz, questions }: QuizFormProps) {
       </div>
 
       {/* Nubmer of Quesiton visualize */}
-      <Progress
-        value={Math.ceil(((step + 1) / questions.length) * 100)}
-        className="mb-6"
-      />
+      <ul className="mb-6 mt-4 flex items-center justify-evenly">
+        {Array.from({ length: questions.length }).map((_, i) => (
+          <li
+            key={i}
+            className={cn(
+              'size-2 rounded-full bg-my-grey-400',
+              step >= i && 'bg-brand'
+            )}
+          ></li>
+        ))}
+      </ul>
 
       {/* Question  title */}
-      <h3 className="mb-2 text-lg font-medium">{currentQuestion.question}</h3>
+      <h3 className="mb-3 h-[60px] text-lg font-medium">
+        {currentQuestion.question}
+      </h3>
 
       {/* Radio Group Controller */}
       <Controller
@@ -95,13 +104,15 @@ export default function QuizForm({ quiz, questions }: QuizFormProps) {
             {currentQuestionAnswers.map((answer) => (
               <div
                 key={answer.answer}
-                className="flex items-center space-x-2 rounded-xl bg-brand-light px-4 py-5"
+                className="flex items-center space-x-2 rounded-xl bg-brand-light px-4"
               >
                 {/* Radio Item indicator */}
                 <RadioGroupItem value={answer.key} id={answer.key} />
 
                 {/* Radio Item label */}
-                <Label htmlFor={answer.key}>{answer.answer}</Label>
+                <Label className="grow py-5" htmlFor={answer.key}>
+                  {answer.answer}
+                </Label>
               </div>
             ))}
           </RadioGroup>
