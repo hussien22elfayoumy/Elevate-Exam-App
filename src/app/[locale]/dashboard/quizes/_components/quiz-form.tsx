@@ -40,9 +40,14 @@ export default function QuizForm({ quiz, questions }: QuizFormProps) {
   });
 
   // functions
-  function onSubmit(values: QuestionFormVelues) {
+  async function onSubmit(values: QuestionFormVelues) {
     const userQuizTime = quiz.duration - new Date(timer).getMinutes();
-    console.log(values, userQuizTime);
+    const res = await fetch('/api/questions/check', {
+      method: 'POST',
+      body: JSON.stringify({ answers: values.answers, time: userQuizTime }),
+    });
+    const data = await res.json();
+    console.log(data);
     setTimer(0);
   }
 

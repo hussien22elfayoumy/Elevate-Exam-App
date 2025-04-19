@@ -71,3 +71,22 @@ declare type QuestionsResponse = {
   metadata: Metadata;
   questions: Question[];
 };
+
+declare type QuizResultResponse = {
+  correct: number;
+  wrong: number;
+  total: string;
+  WrongQuestions: {
+    QID: string;
+    Question: string;
+    inCorrectAnswer: string;
+    correctAnswer: string;
+    answers: object;
+  }[];
+  correctQuestions: {
+    QID: string;
+    Question: string;
+    correctAnswer: string;
+    answers: object;
+  }[];
+};
