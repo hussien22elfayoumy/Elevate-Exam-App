@@ -12,6 +12,7 @@ import {
 } from '@/lib/schemas/quiz-questions.schema';
 import { cn } from '@/lib/utils/cn';
 import QuizTimer from './quiz-timer';
+import { checkQuestions } from '../_actions/quiz.action';
 
 type QuizFormProps = {
   quiz: Quiz;
@@ -22,33 +23,28 @@ export default function QuizForm({ quiz, questions }: QuizFormProps) {
   // State
   const [step, setStep] = useState(0);
   const [userAnswer, setUserAnswer] = useState('');
-  const [timer, setTimer] = useState(new Date(0).setMinutes(quiz.duration));
 
   // Variables
   const currentQuestion = questions[step];
   const isLastQuestion = step === questions.length - 1;
 
   // Form Register
-  const { handleSubmit, getValues, control } = useForm<QuestionFormVelues>({
-    resolver: zodResolver(questionsFormSchema),
-    defaultValues: {
-      answers: questions.map(() => ({
-        questionId: '',
-        correct: '',
-      })),
-    },
-  });
+  const { handleSubmit, getValues, control, setValue, watch } =
+    useForm<QuestionFormVelues>({
+      resolver: zodResolver(questionsFormSchema),
+      defaultValues: {
+        answers: questions.map(() => ({
+          questionId: '',
+          correct: '',
+        })),
+      },
+    });
 
   // functions
   async function onSubmit(values: QuestionFormVelues) {
-    const userQuizTime = quiz.duration - new Date(timer).getMinutes();
-    const res = await fetch('/api/questions/check', {
-      method: 'POST',
-      body: JSON.stringify({ answers: values.answers, time: userQuizTime }),
-    });
-    const data = await res.json();
+    console.log(values);
+    const data = await checkQuestions(values);
     console.log(data);
-    setTimer(0);
   }
 
   // Effects
@@ -66,7 +62,13 @@ export default function QuizForm({ quiz, questions }: QuizFormProps) {
         </p>
 
         {/* Quiz Timer */}
-        <QuizTimer duration={quiz.duration} timer={timer} setTimer={setTimer} />
+        <QuizTimer
+          duration={quiz.duration}
+          onTimerChange={(date) =>
+            // get the time passed in the quiz
+            setValue('time', quiz.duration - date.getMinutes() + 1)
+          }
+        />
       </div>
 
       {/* Nubmer of Quesiton visualize */}

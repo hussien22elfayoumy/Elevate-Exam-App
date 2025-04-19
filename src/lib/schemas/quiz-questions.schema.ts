@@ -8,7 +8,7 @@ export const questionsFormSchema = z.object({
     })
   ),
 
-  // time: z.number(),
+  time: z.number(),
 });
 
 export type QuestionFormVelues = z.infer<typeof questionsFormSchema>;
