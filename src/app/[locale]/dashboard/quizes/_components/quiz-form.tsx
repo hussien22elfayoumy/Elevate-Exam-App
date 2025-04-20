@@ -174,9 +174,14 @@ export default function QuizForm({ quiz, questions }: QuizFormProps) {
               type="button"
               disabled={step === 0 || isPending}
               onClick={() => {
-                setStep((prevStep) => prevStep - 1);
+                // get the prev user answer
                 const answer = getValues(`answers.${step - 1}.correct`);
+
+                // set this answer to the user answer state to show when he go back
                 setUserAnswer(answer);
+
+                // get to the prev step
+                setStep((prevStep) => prevStep - 1);
               }}
               variant="outline"
               className="h-10 rounded-full border-brand hover:bg-brand hover:text-white"
@@ -190,8 +195,18 @@ export default function QuizForm({ quiz, questions }: QuizFormProps) {
               disabled={!userAnswer || isPending}
               onClick={() => {
                 if (isLastQuestion) return;
+                // get the next value
+                const answer = getValues(`answers.${step + 1}.correct`);
+
+                // if there is no next value empty the user answer
+                if (!answer) setUserAnswer('');
+                // if there is onw put it in user answer to save the state when he come back again
+                else {
+                  setUserAnswer(answer);
+                }
+
+                // go to the next step
                 setStep((prevStep) => prevStep + 1);
-                setUserAnswer('');
               }}
               variant="brand"
               className="h-10 rounded-full"
