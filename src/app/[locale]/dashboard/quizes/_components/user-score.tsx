@@ -6,7 +6,6 @@ import { Label, Pie, PieChart } from 'recharts';
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -14,15 +13,9 @@ import {
 import {
   ChartConfig,
   ChartContainer,
-  ChartLegend,
-  ChartLegendContent,
   ChartTooltip,
   ChartTooltipContent,
 } from '@/components/ui/chart';
-const chartData = [
-  { type: 'correct', answers: 18, fill: 'var(--color-correct)' },
-  { type: 'wrong', answers: 2, fill: 'var(--color-wrong)' },
-];
 
 const chartConfig = {
   answers: {
@@ -38,10 +31,31 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export default function UserScore() {
-  const avgAnswers = React.useMemo(() => {
-    return chartData.reduce((acc, curr) => acc + curr.answers, 0);
-  }, []);
+type UserScoreProps = {
+  userScoreRatio: {
+    correct: number;
+    wrong: number;
+  };
+};
+
+export default function UserScore({ userScoreRatio }: UserScoreProps) {
+  const chartData = [
+    {
+      type: 'correct',
+      answers: userScoreRatio?.correct || 0,
+      fill: 'var(--color-correct)',
+    },
+    {
+      type: 'wrong',
+      answers: userScoreRatio?.wrong || 0,
+      fill: 'var(--color-wrong)',
+    },
+  ];
+
+  const avgAnswers = Math.round(
+    (userScoreRatio.correct / (userScoreRatio.correct + userScoreRatio.wrong)) *
+      100
+  );
 
   return (
     <Card className="flex flex-col border-none bg-transparent shadow-none">
@@ -70,7 +84,11 @@ export default function UserScore() {
                 nameKey="type"
                 innerRadius={43}
                 strokeWidth={5}
-                paddingAngle={10}
+                paddingAngle={
+                  userScoreRatio.wrong === 0 || userScoreRatio.correct === 0
+                    ? 0
+                    : 8
+                }
                 cornerRadius={8}
                 startAngle={-180}
                 outerRadius={48}
@@ -90,7 +108,7 @@ export default function UserScore() {
                             y={viewBox.cy}
                             className="text-lg font-semibold"
                           >
-                            83%
+                            {avgAnswers}%
                           </tspan>
                         </text>
                       );
@@ -102,19 +120,19 @@ export default function UserScore() {
           </ChartContainer>
         </CardContent>
         <CardFooter className="flex flex-col gap-1 p-0">
-          <div className="text-chart-correct flex items-center font-semibold">
-            <span className="w-20">Correct</span>
-            <span className="border-chart-correct flex size-7 items-center justify-center rounded-full border">
-              1
-            </span>
-          </div>
-
-          <div className="text-chart-wrong flex items-center font-semibold">
-            <span className="w-20">Wrong</span>
-            <span className="border-chart-wrong flex size-7 items-center justify-center rounded-full border">
-              1
-            </span>
-          </div>
+          {chartData.map((chart) => (
+            <div
+              key={chart.type}
+              className={`text-chart-${chart.type} flex items-center font-semibold`}
+            >
+              <span className="w-20">{chart.type}</span>
+              <span
+                className={`border-chart-${chart.type} flex size-7 items-center justify-center rounded-full border`}
+              >
+                {chart.answers}
+              </span>
+            </div>
+          ))}
         </CardFooter>
       </div>
     </Card>
