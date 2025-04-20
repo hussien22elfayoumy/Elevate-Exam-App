@@ -48,10 +48,10 @@ export default function QuizForm({ quiz, questions }: QuizFormProps) {
   }
 
   // Effects
-  useEffect(() => {
-    const answer = getValues(`answers.${step}.correct`);
-    setUserAnswer(answer);
-  }, [step, getValues]);
+  // useEffect(() => {
+  //   const answer = getValues(`answers.${step}.correct`);
+  //   setUserAnswer(answer);
+  // }, [step, getValues]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -131,6 +131,8 @@ export default function QuizForm({ quiz, questions }: QuizFormProps) {
           disabled={step === 0}
           onClick={() => {
             setStep((prevStep) => prevStep - 1);
+            const answer = getValues(`answers.${step - 1}.correct`);
+            setUserAnswer(answer);
           }}
           variant="outline"
           className="h-10 rounded-full border-brand hover:bg-brand hover:text-white"
