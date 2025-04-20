@@ -13,6 +13,8 @@ const config: Config = {
         brand: 'rgba(var(--brand))',
         'brand-light': 'rgba(var(--brand-light))',
         'brand-dark': 'rgba(var(--brand-dark))',
+        'chart-correct': 'rgba(var(--chart-correct))',
+        'chart-wrong': 'rgba(var(--chart-wrong))',
         'my-grey': {
           '0': 'rgba(var(--my-grey-0))',
           '50': 'rgba(var(--my-grey-50))',

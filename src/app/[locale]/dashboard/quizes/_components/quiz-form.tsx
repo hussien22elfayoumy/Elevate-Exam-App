@@ -13,6 +13,7 @@ import {
 import { cn } from '@/lib/utils/cn';
 import { useCheckQuestions } from '../_hooks/use-check-questions';
 import QuizTimer from './quiz-timer';
+import UserScore from './user-score';
 
 type QuizFormProps = {
   quiz: Quiz;
@@ -69,7 +70,7 @@ export default function QuizForm({ quiz, questions }: QuizFormProps) {
     <>
       {isQuizSubmitted ? (
         <div>
-          <p className="mb-2 text-center font-semibold">Your Score</p>
+          <UserScore />
           <div className="mt-6 flex items-center gap-2">
             {/* Prev btn */}
             <Button
