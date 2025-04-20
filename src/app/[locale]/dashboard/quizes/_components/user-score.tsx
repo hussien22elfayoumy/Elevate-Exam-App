@@ -39,6 +39,7 @@ type UserScoreProps = {
 };
 
 export default function UserScore({ userScoreRatio }: UserScoreProps) {
+  // chart Data
   const chartData = [
     {
       type: 'correct',
@@ -52,6 +53,7 @@ export default function UserScore({ userScoreRatio }: UserScoreProps) {
     },
   ];
 
+  // calc the avg correct answers
   const avgAnswers = Math.round(
     (userScoreRatio.correct / (userScoreRatio.correct + userScoreRatio.wrong)) *
       100
@@ -59,16 +61,20 @@ export default function UserScore({ userScoreRatio }: UserScoreProps) {
 
   return (
     <Card className="flex flex-col border-none bg-transparent shadow-none">
+      {/* Card haeder */}
       <CardHeader className="items-center pb-0">
         <CardTitle>Your Score</CardTitle>
       </CardHeader>
       <div className="flex items-center justify-center pb-0 pe-12">
+        {/* Card Content */}
         <CardContent className="pb-0">
           <ChartContainer
             config={chartConfig}
             className="aspect-square h-[160px]"
           >
+            {/* Pie Chart */}
             <PieChart>
+              {/* Tooltipe on mouse hover */}
               <ChartTooltip
                 cursor={false}
                 content={
@@ -78,6 +84,7 @@ export default function UserScore({ userScoreRatio }: UserScoreProps) {
                   />
                 }
               />
+              {/* The pit itself */}
               <Pie
                 data={chartData}
                 dataKey="answers"
@@ -93,6 +100,7 @@ export default function UserScore({ userScoreRatio }: UserScoreProps) {
                 startAngle={-180}
                 outerRadius={48}
               >
+                {/* the label inside the pie chart */}
                 <Label
                   content={({ viewBox }) => {
                     if (viewBox && 'cx' in viewBox && 'cy' in viewBox) {
@@ -119,7 +127,9 @@ export default function UserScore({ userScoreRatio }: UserScoreProps) {
             </PieChart>
           </ChartContainer>
         </CardContent>
+        {/* Card footer */}
         <CardFooter className="flex flex-col gap-1 p-0">
+          {/* get correct answers and wrong ones */}
           {chartData.map((chart) => (
             <div
               key={chart.type}

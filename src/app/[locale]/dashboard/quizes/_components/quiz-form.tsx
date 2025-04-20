@@ -20,23 +20,15 @@ type QuizFormProps = {
   questions: Question[];
 };
 
-type UserScoreRatio = {
-  correct: number;
-  wrong: number;
-};
-
 export default function QuizForm({ quiz, questions }: QuizFormProps) {
   // State
   const [step, setStep] = useState(0);
   const [userAnswer, setUserAnswer] = useState('');
   const [isQuizSubmitted, setIsQuizSubmitted] = useState(false);
-  const [userScoreRatio, setUserScoreRatio] = useState<UserScoreRatio | null>(
-    null
-  );
+  const [userQuizResult, setUserQuizResult] = useState<QuizResultResponse>();
 
   // Mutations
-  const { checkQuesionsMutate, isPending, checkQuestionsError } =
-    useCheckQuestions();
+  const { checkQuesionsMutate, isPending } = useCheckQuestions();
 
   // Variables
   const currentQuestion = questions[step];
@@ -61,7 +53,7 @@ export default function QuizForm({ quiz, questions }: QuizFormProps) {
       onSuccess: (data) => {
         console.log(data);
         setIsQuizSubmitted(true);
-        setUserScoreRatio({ correct: data.correct, wrong: data.wrong });
+        setUserQuizResult(data);
       },
       onError: (err) => {
         console.log(err.message);
@@ -79,9 +71,11 @@ export default function QuizForm({ quiz, questions }: QuizFormProps) {
     <>
       {isQuizSubmitted ? (
         <div>
-          <UserScore userScoreRatio={userScoreRatio!} />
+          {/* User score stats */}
+          <UserScore userScoreRatio={userQuizResult!} />
+
           <div className="mt-6 flex items-center gap-2">
-            {/* Prev btn */}
+            {/* Prev btn return to the quiz again */}
             <Button
               onClick={() => setIsQuizSubmitted(false)}
               variant="outline"
@@ -90,13 +84,14 @@ export default function QuizForm({ quiz, questions }: QuizFormProps) {
               Back to quiz
             </Button>
 
-            {/* Next btn */}
+            {/* show quiz results wrong answers and the correct */}
             <Button variant="brand" className="h-10 rounded-full">
               Show Results
             </Button>
           </div>
         </div>
       ) : (
+        // Quiz form
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-2 flex justify-between">
             {/* Number of current question */}
