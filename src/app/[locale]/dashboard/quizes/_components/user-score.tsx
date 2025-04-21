@@ -135,7 +135,7 @@ export default function UserScore({ userScoreRatio }: UserScoreProps) {
             <div
               key={chart.type}
               className={cn(
-                `flex items-center font-semibold`,
+                `flex items-center font-semibold capitalize`,
                 chart.type === 'correct'
                   ? 'text-chart-correct'
                   : 'text-chart-wrong'

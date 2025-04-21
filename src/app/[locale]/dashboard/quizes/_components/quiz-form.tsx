@@ -35,24 +35,31 @@ export default function QuizForm({ quiz, questions }: QuizFormProps) {
   const isLastQuestion = step === questions.length - 1;
 
   // Form Register
-  const { handleSubmit, getValues, control, setValue, watch } =
-    useForm<QuestionFormVelues>({
-      resolver: zodResolver(questionsFormSchema),
-      defaultValues: {
-        answers: questions.map(() => ({
-          questionId: '',
-          correct: '',
-        })),
-      },
-    });
+  const {
+    handleSubmit,
+    getValues,
+    control,
+    formState: { errors },
+    setValue,
+    setError,
+  } = useForm<QuestionFormVelues>({
+    resolver: zodResolver(questionsFormSchema),
+    defaultValues: {
+      answers: questions.map(() => ({
+        questionId: '',
+        correct: '',
+      })),
+    },
+  });
 
   // functions
   async function onSubmit(values: QuestionFormVelues) {
-    console.log(values);
     checkQuesionsMutate(values, {
       onSuccess: (data) => {
-        console.log(data);
+        // show form user score result
         setIsQuizSubmitted(true);
+
+        // set the user result
         setUserQuizResult(data);
       },
       onError: (err) => {
@@ -75,22 +82,39 @@ export default function QuizForm({ quiz, questions }: QuizFormProps) {
           <UserScore userScoreRatio={userQuizResult!} />
 
           <div className="mt-6 flex items-center gap-2">
-            {/* Prev btn return to the quiz again */}
+            {/* Prev btn return to the quiz again without show answers */}
             <Button
               onClick={() => setIsQuizSubmitted(false)}
               variant="outline"
               className="h-10 rounded-full border-brand hover:bg-brand hover:text-white"
             >
-              Back to quiz
+              Try Quiz Again
             </Button>
 
             {/* show quiz results wrong answers and the correct */}
             <Button
               variant="brand"
-              onClick={() => console.log('show')}
+              onClick={() => {
+                // get all wrong answers
+                userQuizResult?.WrongQuestions.forEach((quesion) => {
+                  // get the index for each answer in form
+                  getValues('answers').forEach((answer, i) => {
+                    if (answer.questionId === quesion.QID) {
+                      // set the form errors when there is match
+                      setError(`answers.${i}`, {
+                        message: quesion.correctAnswer,
+                      });
+                      return;
+                    }
+                  });
+                });
+
+                // retutn to the form again with answers
+                setIsQuizSubmitted(false);
+              }}
               className="h-10 rounded-full"
             >
-              Show wrong answers
+              Show Wrong Answers
             </Button>
           </div>
         </div>
@@ -152,7 +176,14 @@ export default function QuizForm({ quiz, questions }: QuizFormProps) {
                 {currentQuestion.answers.map((answer) => (
                   <div
                     key={answer.answer}
-                    className="flex items-center space-x-2 rounded-xl bg-brand-light px-4"
+                    className={cn(
+                      'flex items-center space-x-2 rounded-xl bg-brand-light px-4',
+                      // mark all wrong ones
+                      errors.answers?.[step] && 'bg-red-400',
+                      // Mark the correct one
+                      errors.answers?.[step]?.message === answer.key &&
+                        'bg-green-400'
+                    )}
                   >
                     {/* Radio Item indicator */}
                     <RadioGroupItem value={answer.key} id={answer.key} />
