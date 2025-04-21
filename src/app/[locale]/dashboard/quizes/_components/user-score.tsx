@@ -16,6 +16,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from '@/components/ui/chart';
+import { cn } from '@/lib/utils/cn';
 
 const chartConfig = {
   answers: {
@@ -114,7 +115,7 @@ export default function UserScore({ userScoreRatio }: UserScoreProps) {
                           <tspan
                             x={viewBox.cx}
                             y={viewBox.cy}
-                            className="text-lg font-semibold"
+                            className="fill-my-grey-700 text-lg font-semibold"
                           >
                             {avgAnswers}%
                           </tspan>
@@ -133,11 +134,21 @@ export default function UserScore({ userScoreRatio }: UserScoreProps) {
           {chartData.map((chart) => (
             <div
               key={chart.type}
-              className={`text-chart-${chart.type} flex items-center font-semibold`}
+              className={cn(
+                `flex items-center font-semibold`,
+                chart.type === 'correct'
+                  ? 'text-chart-correct'
+                  : 'text-chart-wrong'
+              )}
             >
               <span className="w-20">{chart.type}</span>
               <span
-                className={`border-chart-${chart.type} flex size-7 items-center justify-center rounded-full border`}
+                className={cn(
+                  `flex size-7 items-center justify-center rounded-full border`,
+                  chart.type === 'correct'
+                    ? 'border-chart-correct'
+                    : 'border-chart-wrong'
+                )}
               >
                 {chart.answers}
               </span>

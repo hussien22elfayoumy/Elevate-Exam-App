@@ -85,8 +85,12 @@ export default function QuizForm({ quiz, questions }: QuizFormProps) {
             </Button>
 
             {/* show quiz results wrong answers and the correct */}
-            <Button variant="brand" className="h-10 rounded-full">
-              Show Results
+            <Button
+              variant="brand"
+              onClick={() => console.log('show')}
+              className="h-10 rounded-full"
+            >
+              Show wrong answers
             </Button>
           </div>
         </div>
