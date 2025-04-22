@@ -42,6 +42,7 @@ export default function QuizForm({ quiz, questions }: QuizFormProps) {
     formState: { errors },
     setValue,
     setError,
+    reset,
   } = useForm<QuestionFormVelues>({
     resolver: zodResolver(questionsFormSchema),
     defaultValues: {
@@ -56,6 +57,7 @@ export default function QuizForm({ quiz, questions }: QuizFormProps) {
   async function onSubmit(values: QuestionFormVelues) {
     checkQuesionsMutate(values, {
       onSuccess: (data) => {
+        console.log(data);
         // show form user score result
         setIsQuizSubmitted(true);
 
@@ -84,7 +86,12 @@ export default function QuizForm({ quiz, questions }: QuizFormProps) {
           <div className="mt-6 flex items-center gap-2">
             {/* Prev btn return to the quiz again without show answers */}
             <Button
-              onClick={() => setIsQuizSubmitted(false)}
+              onClick={() => {
+                reset();
+                setIsQuizSubmitted(false);
+                setStep(0);
+                setUserAnswer('');
+              }}
               variant="outline"
               className="h-10 rounded-full border-brand hover:bg-brand hover:text-white"
             >
