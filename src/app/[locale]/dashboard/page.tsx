@@ -3,13 +3,15 @@ import { Suspense } from 'react';
 import Search from './_components/search';
 import Subjects from './_components/subjects';
 import UserStats from './_components/user-stats';
+import AddDiplomaDialog from './_components/add-diploma-dialog';
 
 export default function Home() {
   return (
     <>
       {/* Search Diplomas */}
-      <section className="mb-10">
+      <section className="mb-10 flex items-stretch gap-2">
         <Search />
+        <AddDiplomaDialog />
       </section>
 
       {/* User stats section */}
