@@ -57,7 +57,6 @@ export default function QuizForm({ quiz, questions }: QuizFormProps) {
   async function onSubmit(values: QuestionFormVelues) {
     checkQuesionsMutate(values, {
       onSuccess: (data) => {
-        console.log(data);
         // show form user score result
         setIsQuizSubmitted(true);
 
@@ -182,7 +181,7 @@ export default function QuizForm({ quiz, questions }: QuizFormProps) {
               >
                 {currentQuestion.answers.map((answer) => (
                   <div
-                    key={answer.answer}
+                    key={answer.key + answer.answer}
                     className={cn(
                       'flex items-center space-x-2 rounded-xl bg-brand-light px-4',
                       // mark all wrong ones
