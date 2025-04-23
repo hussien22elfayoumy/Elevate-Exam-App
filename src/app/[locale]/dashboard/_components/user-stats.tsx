@@ -1,7 +1,9 @@
 import Image from 'next/image';
-import { FaFlag, FaBolt, FaCircleCheck } from 'react-icons/fa6';
+import { FaBolt, FaCircleCheck, FaFlag } from 'react-icons/fa6';
 
+import { authOptions } from '@/auth';
 import { Progress } from '@/components/ui/progress';
+import { getServerSession } from 'next-auth';
 
 const userStats = [
   {
@@ -21,7 +23,8 @@ const userStats = [
   },
 ];
 
-export default function UserStats() {
+export default async function UserStats() {
+  const session = await getServerSession(authOptions);
   return (
     <>
       <div className="relative h-[200px] w-full overflow-hidden rounded-xl md:size-[220px]">
@@ -37,10 +40,12 @@ export default function UserStats() {
 
       <div className="flex-1">
         {/* User Name */}
-        <h1 className="text-3xl font-semibold text-brand">Hussien Elfayoumy</h1>
+        <h1 className="text-3xl font-semibold capitalize text-brand">{`${session?.user.firstName} ${session?.user.lastName}`}</h1>
 
         {/* User Job */}
-        <p className="pt-1 font-medium text-my-grey-500">Frontend Developer</p>
+        <p className="pt-1 font-medium text-my-grey-500">
+          {session?.user.username}
+        </p>
 
         {/* Progress so far */}
         <div className="progress pt-5">
