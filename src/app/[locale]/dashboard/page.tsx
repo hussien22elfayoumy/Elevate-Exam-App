@@ -6,12 +6,13 @@ import UserStats from './_components/user-stats';
 import AddDiplomaDialog from './_components/add-diploma-dialog';
 
 export default function Home() {
+  const isAdmin = false;
   return (
     <>
       {/* Search Diplomas */}
       <section className="mb-10 flex items-stretch gap-2">
         <Search />
-        <AddDiplomaDialog />
+        {isAdmin && <AddDiplomaDialog />}
       </section>
 
       {/* User stats section */}

@@ -1,13 +1,19 @@
 import React, { Suspense } from 'react';
 import Quizes from './_components/quizes';
+import Search from '../_components/search';
+import AddQuizDialog from './_components/add-quiz-dialog';
 
 export default function Page() {
+  const isAdmin = false;
   return (
     <>
-      <section className="px-4">
-        {/* Title */}
-        <h2 className="mb-6 text-2xl font-medium text-brand">All Quizes</h2>
+      {/* Search Diplomas */}
+      <section className="mb-10 flex items-stretch gap-2">
+        <Search />
+        {isAdmin && <AddQuizDialog />}
+      </section>
 
+      <section className="">
         {/* all quizes */}
 
         <Suspense fallback={<h2>Loading quizes</h2>}>
