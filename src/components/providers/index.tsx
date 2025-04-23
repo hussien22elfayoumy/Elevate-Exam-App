@@ -8,6 +8,7 @@ import {
 
 import NextAuthProvider from './components/next-auth.provider';
 import ReactQueryProvider from './components/react-query.provider';
+import { ThemeProvider } from './components/theme.provider';
 
 type ProivderProps = {
   children: React.ReactNode;
@@ -21,15 +22,22 @@ export default function Providers({ children }: ProivderProps) {
   const timeZone = useTimeZone();
 
   return (
-    <NextAuthProvider>
-      <NextIntlClientProvider
-        messages={messages}
-        locale={locale}
-        now={now}
-        timeZone={timeZone}
-      >
-        <ReactQueryProvider>{children}</ReactQueryProvider>
-      </NextIntlClientProvider>
-    </NextAuthProvider>
+    <ThemeProvider
+      attribute="class"
+      defaultTheme="system"
+      enableSystem
+      disableTransitionOnChange
+    >
+      <NextAuthProvider>
+        <NextIntlClientProvider
+          messages={messages}
+          locale={locale}
+          now={now}
+          timeZone={timeZone}
+        >
+          <ReactQueryProvider>{children}</ReactQueryProvider>
+        </NextIntlClientProvider>
+      </NextAuthProvider>
+    </ThemeProvider>
   );
 }
