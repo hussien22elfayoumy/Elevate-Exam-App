@@ -1,7 +1,9 @@
 import z from 'zod';
 
 // NOTE email schema
-const emailSchema = (t: (key: string, values?: {}) => string) =>
+const emailSchema = (
+  t: (key: string, values?: Record<string, string | number | Date>) => string
+) =>
   z
     .string()
     .min(1, t('required', { input: t('email') }))
@@ -10,7 +12,9 @@ const emailSchema = (t: (key: string, values?: {}) => string) =>
     .trim();
 
 // NOTE password schema
-const passwordSchema = (t: (key: string, values?: {}) => string) =>
+const passwordSchema = (
+  t: (key: string, values?: Record<string, string | number | Date>) => string
+) =>
   z
     .string()
     .min(1, t('required', { input: t('password') }))
@@ -22,7 +26,9 @@ const passwordSchema = (t: (key: string, values?: {}) => string) =>
     .trim();
 
 // NOTE phone schema
-const phoneSchema = (t: (key: string, values?: {}) => string) =>
+const phoneSchema = (
+  t: (key: string, values?: Record<string, string | number | Date>) => string
+) =>
   z
     .string()
     .min(1, t('required', { input: t('phone-number') }))
@@ -32,13 +38,17 @@ const phoneSchema = (t: (key: string, values?: {}) => string) =>
 
 // NOTE rePassword validation
 const rePasswordSchema = z.string();
-const PasswordsRefinement = (t: (key: string, values?: {}) => string) => ({
+const PasswordsRefinement = (
+  t: (key: string, values?: Record<string, string | number | Date>) => string
+) => ({
   message: t('passwords-dont-match'),
   path: ['rePassword'],
 });
 
 // NOTE Signup form schema
-export const signupSchame = (t: (key: string, values?: {}) => string) =>
+export const signupSchame = (
+  t: (key: string, values?: Record<string, string | number | Date>) => string
+) =>
   z
     .object({
       username: z
@@ -69,7 +79,9 @@ export const signupSchame = (t: (key: string, values?: {}) => string) =>
 export type SignupFormValues = z.infer<ReturnType<typeof signupSchame>>;
 
 // NOTE Signin form schema
-export const signinSchema = (t: (key: string, values?: {}) => string) =>
+export const signinSchema = (
+  t: (key: string, values?: Record<string, string | number | Date>) => string
+) =>
   z.object({
     email: emailSchema(t),
     password: z.string().min(1, t('required', { input: t('password') })),
@@ -78,7 +90,9 @@ export const signinSchema = (t: (key: string, values?: {}) => string) =>
 export type SigninFormValues = z.infer<ReturnType<typeof signinSchema>>;
 
 // NOTE Forgot password form schema
-export const forgotPassowrdSchema = (t: (key: string, values?: {}) => string) =>
+export const forgotPassowrdSchema = (
+  t: (key: string, values?: Record<string, string | number | Date>) => string
+) =>
   z.object({
     email: emailSchema(t),
   });
@@ -88,7 +102,9 @@ export type ForgotPasswordFormValues = z.infer<
 >;
 
 // NOTE Reset password form schema
-export const resetPasswordSchema = (t: (key: string, values?: {}) => string) =>
+export const resetPasswordSchema = (
+  t: (key: string, values?: Record<string, string | number | Date>) => string
+) =>
   z
     .object({
       email: emailSchema(t),

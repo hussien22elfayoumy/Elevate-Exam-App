@@ -1,5 +1,4 @@
-import React from 'react';
-import { Circle, Square } from '../index';
+import { Square } from '../index';
 
 export default function DiplomasSkeleton() {
   return (

@@ -1,6 +1,6 @@
 'use client';
 import { LucideAlarmClock } from 'lucide-react';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 type QuizTimerProps = {
   duration: number;
