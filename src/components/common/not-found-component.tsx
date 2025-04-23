@@ -5,7 +5,7 @@ export default function NotFoundComponent() {
   return (
     <main className="flex h-screen w-full flex-col items-center justify-center gap-5 px-10">
       <h2 className="text-xl font-medium">
-        The page you looking for isnot found.
+        The page you looking for is not found.
       </h2>
       <div className="relative h-1/2 w-full">
         <Image
