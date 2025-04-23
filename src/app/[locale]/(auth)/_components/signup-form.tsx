@@ -41,8 +41,7 @@ export default function SignupForm() {
   // Signup form submit handler
   async function onSubmit(values: SignupFormValues) {
     try {
-      const data = await signup(values);
-      console.log(data);
+      await signup(values);
 
       toast({
         title: 'Account created Successfully',

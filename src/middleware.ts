@@ -1,7 +1,8 @@
 import { withAuth } from 'next-auth/middleware';
 import createMiddleware from 'next-intl/middleware';
-import { NextRequest } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { routing } from './i18n/routing';
+import { getToken } from 'next-auth/jwt';
 const publicPages = [
   '/signup',
   '/signin',
@@ -9,6 +10,8 @@ const publicPages = [
   '/forgot-password',
   '/verify-code',
 ];
+
+type MiddlewareFunction = (req: NextRequest) => Promise<NextResponse>;
 
 const handleI18nRouting = createMiddleware(routing);
 
@@ -29,7 +32,7 @@ const authMiddleware = withAuth(
   }
 );
 
-export default function middleware(req: NextRequest) {
+export default async function middleware(req: NextRequest) {
   const publicPathnameRegex = RegExp(
     `^(/(${routing.locales.join('|')}))?(${publicPages
       .flatMap((p) => (p === '/' ? ['', '/'] : p))
@@ -39,9 +42,14 @@ export default function middleware(req: NextRequest) {
   const isPublicPage = publicPathnameRegex.test(req.nextUrl.pathname);
 
   if (isPublicPage) {
+    const token = await getToken({ req });
+    const redirectURL = new URL('/dashboard', req.nextUrl.origin);
+
+    if (token) return NextResponse.redirect(redirectURL);
+
     return handleI18nRouting(req);
   } else {
-    return (authMiddleware as any)(req);
+    return (authMiddleware as MiddlewareFunction)(req);
   }
 }
 

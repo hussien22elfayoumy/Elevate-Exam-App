@@ -14,6 +14,7 @@ import { cn } from '@/lib/utils/cn';
 import { useCheckQuestions } from '../_hooks/use-check-questions';
 import QuizTimer from './quiz-timer';
 import UserScore from './user-score';
+import { toast } from '@/hooks/use-toast';
 
 type QuizFormProps = {
   quiz: Quiz;
@@ -64,7 +65,10 @@ export default function QuizForm({ quiz, questions }: QuizFormProps) {
         setUserQuizResult(data);
       },
       onError: (err) => {
-        console.log(err.message);
+        toast({
+          variant: 'destructive',
+          description: (err as Error).message,
+        });
       },
     });
   }

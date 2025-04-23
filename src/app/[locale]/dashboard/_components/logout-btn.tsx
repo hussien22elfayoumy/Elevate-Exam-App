@@ -13,8 +13,8 @@ export default function LogoutBtn() {
     <Button
       variant="destructive"
       className="flex h-10 items-center justify-start gap-2 font-medium"
-      onClick={() => {
-        signOut({ redirect: false });
+      onClick={async () => {
+        await signOut({ redirect: false });
         router.push('/signin');
       }}
     >

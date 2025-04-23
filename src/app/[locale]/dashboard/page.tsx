@@ -1,18 +1,20 @@
 import { Suspense } from 'react';
+import { authOptions } from '@/auth';
 
 import Search from './_components/search';
 import Subjects from './_components/subjects';
 import UserStats from './_components/user-stats';
 import AddDiplomaDialog from './_components/add-diploma-dialog';
+import { getServerSession } from 'next-auth';
 
-export default function Home() {
-  const isAdmin = false;
+export default async function Home() {
+  const session = await getServerSession(authOptions);
   return (
     <>
       {/* Search Diplomas */}
       <section className="mb-10 flex items-stretch gap-2">
         <Search />
-        {isAdmin && <AddDiplomaDialog />}
+        {session?.user.role !== 'user' && <AddDiplomaDialog />}
       </section>
 
       {/* User stats section */}

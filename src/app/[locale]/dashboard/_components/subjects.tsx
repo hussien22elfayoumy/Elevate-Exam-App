@@ -11,7 +11,7 @@ export default async function Subjects() {
       {data.subjects.length > 0 ? (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {data.subjects.map((subject) => (
-            <Link key={subject._id} href={`/dashboard/${subject._id}`}>
+            <Link key={subject._id} href={`/dashboard/quizes`}>
               <SubjectCard subject={subject} />
             </Link>
           ))}

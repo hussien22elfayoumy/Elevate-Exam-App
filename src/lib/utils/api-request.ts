@@ -24,7 +24,6 @@ export async function apiRequest<T>({
 
     return data;
   } catch (err) {
-    console.log((err as Error).message);
     throw err;
   }
 }

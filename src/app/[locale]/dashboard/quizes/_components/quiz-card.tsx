@@ -1,6 +1,8 @@
 import Image from 'next/image';
 import AddQuestionsDialog from './add-questions-dialog';
 import QuizFormDialog from './quiz-form-dialog';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/auth';
 
 type QuizCardProps = {
   quiz: Quiz;
@@ -15,9 +17,9 @@ const quizIcons = {
 
 type QuizIcons = 'html' | 'css' | 'javascript' | 'react';
 
-export default function QuizCard({ quiz }: QuizCardProps) {
+export default async function QuizCard({ quiz }: QuizCardProps) {
   // Variables
-  const isAdmin = false;
+  const session = await getServerSession(authOptions);
   const nameIcontMap = quiz.title.split(' ')[0].toLocaleLowerCase();
 
   return (
@@ -43,10 +45,10 @@ export default function QuizCard({ quiz }: QuizCardProps) {
         <p className="text-sm font-medium">{quiz.duration} minutes</p>
 
         {/* Start the quiz */}
-        {isAdmin ? (
-          <AddQuestionsDialog quiz={quiz} />
-        ) : (
+        {session?.user.role === 'user' ? (
           <QuizFormDialog quiz={quiz} />
+        ) : (
+          <AddQuestionsDialog quiz={quiz} />
         )}
       </div>
     </div>
