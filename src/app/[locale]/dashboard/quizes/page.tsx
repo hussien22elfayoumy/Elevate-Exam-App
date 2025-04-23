@@ -5,6 +5,7 @@ import Quizes from './_components/quizes';
 import Search from '../_components/search';
 import AddQuizDialog from './_components/add-quiz-dialog';
 import { authOptions } from '@/auth';
+import QuizesSkeleton from '@/components/skeletons/quizes/quizes.skeleton';
 
 export default async function Page() {
   const session = await getServerSession(authOptions);
@@ -19,7 +20,7 @@ export default async function Page() {
       <section className="">
         {/* all quizes */}
 
-        <Suspense fallback={<h2>Loading quizes</h2>}>
+        <Suspense fallback={<QuizesSkeleton />}>
           <Quizes />
         </Suspense>
       </section>
