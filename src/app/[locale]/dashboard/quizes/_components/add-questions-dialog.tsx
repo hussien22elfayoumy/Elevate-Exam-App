@@ -7,22 +7,27 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import AddDiplomaForm from './add-diploma-form';
+import AddQuestionsForm from './add-questions-form';
+type AddQuestionsDialogProps = {
+  quiz: Quiz;
+};
 
-export default async function AddDiplomaDialog() {
+export default async function AddQuestionsDialog({
+  quiz,
+}: AddQuestionsDialogProps) {
   return (
     <Dialog>
       <DialogTrigger asChild>
         <Button variant="brand" className="h-auto w-fit rounded-xl px-6">
-          Add Diploma
+          Add Questions
         </Button>
       </DialogTrigger>
       <DialogContent className="max-w-xl gap-3 !rounded-xl border-my-grey-100 bg-my-grey-50">
         <DialogHeader>
-          <DialogTitle className="text-brand">Add new diploma</DialogTitle>
+          <DialogTitle>{quiz.title}</DialogTitle>
           <DialogDescription />
         </DialogHeader>
-        <AddDiplomaForm />
+        <AddQuestionsForm />
       </DialogContent>
     </Dialog>
   );

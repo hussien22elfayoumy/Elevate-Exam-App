@@ -1,6 +1,5 @@
-import { Button } from '@/components/ui/button';
 import Image from 'next/image';
-import React from 'react';
+import AddQuestionsDialog from './add-questions-dialog';
 import QuizFormDialog from './quiz-form-dialog';
 
 type QuizCardProps = {
@@ -18,6 +17,7 @@ type QuizIcons = 'html' | 'css' | 'javascript' | 'react';
 
 export default function QuizCard({ quiz }: QuizCardProps) {
   // Variables
+  const isAdmin = false;
   const nameIcontMap = quiz.title.split(' ')[0].toLocaleLowerCase();
 
   return (
@@ -43,7 +43,11 @@ export default function QuizCard({ quiz }: QuizCardProps) {
         <p className="text-sm font-medium">{quiz.duration} minutes</p>
 
         {/* Start the quiz */}
-        <QuizFormDialog quiz={quiz} />
+        {isAdmin ? (
+          <AddQuestionsDialog quiz={quiz} />
+        ) : (
+          <QuizFormDialog quiz={quiz} />
+        )}
       </div>
     </div>
   );
