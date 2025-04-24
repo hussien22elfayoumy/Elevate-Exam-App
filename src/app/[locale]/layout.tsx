@@ -5,8 +5,8 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 
 import Providers from '@/components/providers';
-import { poppins } from '@/fonts/google-fonts';
 import { Toaster } from '@/components/ui/toaster';
+import { poppins } from '@/fonts/google-fonts';
 
 export const metadata: Metadata = {
   title: {
@@ -15,6 +15,10 @@ export const metadata: Metadata = {
   },
   description: 'Elevate Exam App',
 };
+
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
 
 export default function LocaleLayout({
   children,
