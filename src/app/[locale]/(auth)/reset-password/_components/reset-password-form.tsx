@@ -10,7 +10,7 @@ import {
   resetPasswordSchema,
 } from '@/lib/schemes/auth.schema';
 import { toast } from '@/hooks/use-toast';
-import { useRouter } from '@/i18n/navigation';
+import { Link, useRouter } from '@/i18n/navigation';
 import { GenericToastOptions } from '@/lib/constants/toast.constant';
 import { resetPassword } from '../../_actions/auth.action';
 import InputError from '../../_components/input-error';
@@ -38,6 +38,7 @@ export default function ResetPasswordForm() {
       password: '',
       rePassword: '',
     },
+    disabled: !email,
   });
 
   // Reset password form submit handler
@@ -90,9 +91,19 @@ export default function ResetPasswordForm() {
       </div>
 
       {/* Submit form */}
-      <Button disabled={isSubmitting} variant="brand" size="form">
-        {isSubmitting ? t('loading') : t('reset-password')}
-      </Button>
+      {email ? (
+        <Button disabled={isSubmitting} variant="brand" size="form">
+          {isSubmitting ? t('loading') : t('reset-password')}
+        </Button>
+      ) : (
+        <p className="text-red-600 dark:text-red-400">
+          Please start the reset password flow from{' '}
+          <Link href="/forgot-password" className="underline">
+            the beginning
+          </Link>
+          .
+        </p>
+      )}
     </form>
   );
 }
