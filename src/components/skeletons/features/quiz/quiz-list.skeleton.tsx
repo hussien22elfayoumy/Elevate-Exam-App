@@ -1,5 +1,4 @@
-import React from 'react';
-import { Square } from '../index';
+import { Square } from '../..';
 
 export default function QuizesSkeleton() {
   return (

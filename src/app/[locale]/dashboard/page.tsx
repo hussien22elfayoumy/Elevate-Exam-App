@@ -6,15 +6,23 @@ import Subjects from './_components/subjects';
 import UserStats from './_components/user-stats';
 import AddDiplomaDialog from './_components/add-diploma-dialog';
 import { getServerSession } from 'next-auth';
-import DiplomasSkeleton from '@/components/skeletons/diplomas/diplomas.skeleton';
+import DiplomasSkeleton from '@/components/skeletons/features/diploma/diploma-list.skeleton';
+import { getTranslations } from 'next-intl/server';
 
 export default async function Home() {
+  // Translation
+  const t = await getTranslations();
+
+  // Variables
   const session = await getServerSession(authOptions);
+
   return (
     <>
       {/* Search Diplomas */}
       <section className="mb-10 flex items-stretch gap-2">
+        {/* Search */}
         <Search />
+        {/* Add diploma */}
         {session?.user.role !== 'user' && <AddDiplomaDialog />}
       </section>
 
@@ -25,7 +33,12 @@ export default async function Home() {
 
       {/* All dimplomas section */}
       <section className="rounded-xl bg-my-grey-150 p-6">
-        <h2 className="mb-6 text-2xl font-medium text-brand">Diplomas</h2>
+        {/* Title */}
+        <h2 className="mb-6 text-2xl font-medium text-brand">
+          {t('diplomas')}
+        </h2>
+
+        {/* Subjects */}
         <Suspense fallback={<DiplomasSkeleton />}>
           <Subjects />
         </Suspense>

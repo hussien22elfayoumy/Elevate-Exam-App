@@ -9,12 +9,18 @@ export async function getAccessToken() {
 
   const incodedToken = cookieName?.value;
 
-  const decodedToken = await decode({
-    token: incodedToken,
-    secret: process.env.NEXTAUTH_SECRET!,
-  });
+  try {
+    const decodedToken = await decode({
+      token: incodedToken,
+      secret: process.env.NEXTAUTH_SECRET!,
+    });
 
-  if (!decodedToken) throw new Error('Cant get access token');
+    if (!decodedToken) throw new Error('Token not found!');
 
-  return decodedToken.accessToken;
+    return decodedToken.accessToken;
+  } catch (error) {
+    void error;
+
+    return null;
+  }
 }

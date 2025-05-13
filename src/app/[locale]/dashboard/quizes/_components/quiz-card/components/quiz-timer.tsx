@@ -35,7 +35,7 @@ export default function QuizTimer({
     }, 1000);
 
     return () => window.clearInterval(timerInterval);
-  }, []);
+  }, [onQuizTimeEnd, onTimerChange]);
 
   return (
     <p className="flex items-center gap-1">

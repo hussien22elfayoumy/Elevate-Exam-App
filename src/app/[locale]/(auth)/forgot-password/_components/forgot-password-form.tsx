@@ -10,12 +10,13 @@ import { Input } from '@/components/ui/input';
 import {
   forgotPassowrdSchema,
   ForgotPasswordFormValues,
-} from '@/lib/schemas/auth.schema';
-import { APIToastError } from '@/lib/utils/api-toast-error';
-import InputError from './input-error';
-import { forgotPassword } from '../_actions/auth.action';
+} from '@/lib/schemes/auth.schema';
+import InputError from '../../_components/input-error';
+import { forgotPassword } from '../../_actions/auth.action';
 import { toast } from '@/hooks/use-toast';
 import { Link } from '@/i18n/navigation';
+import { GenericToastOptions } from '@/lib/constants/toast.constant';
+import { useAuthProvider } from '../../_providers/auth.provider';
 
 export default function ForgotPasswordForm() {
   // Translations
@@ -24,7 +25,10 @@ export default function ForgotPasswordForm() {
   // Navigation
   const router = useRouter();
 
-  // Ract hook Form
+  // Context
+  const { setEmail } = useAuthProvider();
+
+  // React hook Form
   const {
     handleSubmit,
     register,
@@ -39,19 +43,23 @@ export default function ForgotPasswordForm() {
 
   // Forgot password form submit handler
   async function onSubmit(values: ForgotPasswordFormValues) {
-    try {
-      const data = await forgotPassword(values);
+    const payload = await forgotPassword(values);
 
-      toast({
-        title: data.message,
-        description: data.info,
-        variant: 'success',
-      });
-
-      router.push('/verify-code');
-    } catch (err) {
-      APIToastError(err);
+    if (!payload.success) {
+      toast(GenericToastOptions.error(payload.error));
+      return;
     }
+
+    toast({
+      title: payload.data.message,
+      description: payload.data.info,
+      variant: 'success',
+    });
+
+    // Save submittion email
+    setEmail(values.email);
+
+    router.push('/verify-code');
   }
 
   return (

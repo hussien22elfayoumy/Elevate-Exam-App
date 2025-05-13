@@ -1,20 +1,16 @@
-import { JSON_HEADER } from '../constants/api.constant';
+interface APIRequset extends RequestInit {
+  endpoint: string;
+}
 
 export async function apiRequest<T>({
   endpoint,
-  method,
-  body,
-  headers,
-}: APIRequestOptions) {
+  ...params
+}: APIRequset): Promise<
+  | { success: true; data: SuccessfullResponse<T> }
+  | { success: false; error: string }
+> {
   try {
-    const res = await fetch(`${process.env.API}/${endpoint}`, {
-      method,
-      body: body ? JSON.stringify(body) : undefined,
-      headers: {
-        ...JSON_HEADER,
-        ...headers,
-      },
-    });
+    const res = await fetch(`${process.env.API}/${endpoint}`, params);
 
     const data: APIResponse<T> = await res.json();
 
@@ -22,8 +18,8 @@ export async function apiRequest<T>({
       throw new Error(data.message || 'Something went wrong, try again later');
     }
 
-    return data;
+    return { success: true, data };
   } catch (err) {
-    throw err;
+    return { success: false, error: (err as Error).message };
   }
 }

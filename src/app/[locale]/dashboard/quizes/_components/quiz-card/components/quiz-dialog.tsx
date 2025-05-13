@@ -7,15 +7,15 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { getQuizQuestions } from '../_utils/qut-quiz-questions';
 import QuizForm from './quiz-form';
+import { getQuizQuestions } from '../../../_utils/get-quiz-questions';
 
 type QuizFormDialogProps = {
   quiz: Quiz;
 };
 
 export default async function QuizFormDialog({ quiz }: QuizFormDialogProps) {
-  const questions = await getQuizQuestions(quiz._id);
+  const payload = await getQuizQuestions(quiz._id);
 
   return (
     <Dialog>
@@ -30,12 +30,18 @@ export default async function QuizFormDialog({ quiz }: QuizFormDialogProps) {
           <DialogDescription />
         </DialogHeader>
 
-        {questions.questions.length > 0 ? (
-          <QuizForm quiz={quiz} questions={questions.questions} />
+        {!payload.success ? (
+          <p className="text-center text-lg text-red-500">{payload.error}</p>
         ) : (
-          <p className="text-center text-lg text-red-500">
-            No Quesions founded
-          </p>
+          <>
+            {payload.data.questions.length > 0 ? (
+              <QuizForm quiz={quiz} questions={payload.data.questions} />
+            ) : (
+              <p className="text-center text-lg text-red-500">
+                No Quesions founded
+              </p>
+            )}
+          </>
         )}
       </DialogContent>
     </Dialog>

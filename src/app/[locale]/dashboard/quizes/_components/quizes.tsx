@@ -1,16 +1,23 @@
 import React from 'react';
-import QuizCard from './quiz-card';
 import { getQuizes } from '../_utils/get-quizes';
+import QuizCard from './quiz-card';
 
 export default async function Quizes() {
-  const data = await getQuizes();
+  const payload = await getQuizes();
+
+  if (!payload.success)
+    return (
+      <p className="text-center text-lg font-semibold text-red-500">
+        {payload.error}
+      </p>
+    );
 
   return (
     <>
       {/* all quizes */}
-      {data.exams.length > 0 ? (
+      {payload.data.exams.length > 0 ? (
         <div className="space-y-4">
-          {data.exams.map((quiz) => (
+          {payload.data.exams.map((quiz) => (
             <QuizCard key={quiz._id} quiz={quiz} />
           ))}
         </div>

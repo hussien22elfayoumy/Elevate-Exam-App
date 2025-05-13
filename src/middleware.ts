@@ -3,7 +3,8 @@ import createMiddleware from 'next-intl/middleware';
 import { NextRequest, NextResponse } from 'next/server';
 import { routing } from './i18n/routing';
 import { getToken } from 'next-auth/jwt';
-const publicPages = [
+
+const authPages = [
   '/signup',
   '/signin',
   '/reset-password',
@@ -34,14 +35,14 @@ const authMiddleware = withAuth(
 
 export default async function middleware(req: NextRequest) {
   const publicPathnameRegex = RegExp(
-    `^(/(${routing.locales.join('|')}))?(${publicPages
+    `^(/(${routing.locales.join('|')}))?(${authPages
       .flatMap((p) => (p === '/' ? ['', '/'] : p))
       .join('|')})/?$`,
     'i'
   );
-  const isPublicPage = publicPathnameRegex.test(req.nextUrl.pathname);
+  const isAuthPage = publicPathnameRegex.test(req.nextUrl.pathname);
 
-  if (isPublicPage) {
+  if (isAuthPage) {
     const token = await getToken({ req });
     const redirectURL = new URL('/dashboard', req.nextUrl.origin);
 

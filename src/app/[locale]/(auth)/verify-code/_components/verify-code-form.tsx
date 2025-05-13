@@ -4,11 +4,12 @@ import { useTranslations } from 'next-intl';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import InputError from './input-error';
-import { verifyResetCode } from '../_actions/auth.action';
 import { toast } from '@/hooks/use-toast';
-import { APIToastError } from '@/lib/utils/api-toast-error';
-import { Link, useRouter } from '@/i18n/navigation';
+import { useRouter } from '@/i18n/navigation';
+import { GenericToastOptions } from '@/lib/constants/toast.constant';
+import { useAuthProvider } from '../../_providers/auth.provider';
+import InputError from '../../_components/input-error';
+import { forgotPassword, verifyResetCode } from '../../_actions/auth.action';
 
 export default function VerifyCodeForm() {
   // Navigation
@@ -16,6 +17,9 @@ export default function VerifyCodeForm() {
 
   // Translations
   const t = useTranslations();
+
+  // Context
+  const { email } = useAuthProvider();
 
   // React Hook Form
   const {
@@ -28,21 +32,37 @@ export default function VerifyCodeForm() {
     },
   });
 
+  async function resendOTP() {
+    const payload = await forgotPassword({ email: email! });
+
+    if (!payload.success) {
+      toast(GenericToastOptions.error(payload.error));
+      return;
+    }
+
+    toast({
+      title: payload.data.message,
+      description: payload.data.info,
+      variant: 'success',
+    });
+  }
+
   // Verify code form submit handler
   async function onSubmit(values: { resetCode: string }) {
-    try {
-      const data = await verifyResetCode(values);
+    const payload = await verifyResetCode(values);
 
-      toast({
-        title: data.status,
-        description: 'You can reset your password now',
-        variant: 'success',
-      });
-
-      router.push('/reset-password');
-    } catch (err) {
-      APIToastError(err);
+    if (!payload.success) {
+      toast(GenericToastOptions.error(payload.error));
+      return;
     }
+
+    toast({
+      title: payload.data.status,
+      description: 'You can reset your password now',
+      variant: 'success',
+    });
+
+    router.push('/reset-password');
   }
 
   return (
@@ -66,12 +86,13 @@ export default function VerifyCodeForm() {
       {/* Didn't receive code */}
       <p className="mb-5 me-2 text-end">
         {t('didnt-receive-code')}{' '}
-        <Link
-          href="/forgot-password"
+        <button
+          type="button"
+          onClick={resendOTP}
           className="font-medium text-brand hover:underline"
         >
           {t('resend')}
-        </Link>
+        </button>
       </p>
 
       {/* form submit */}
