@@ -7,10 +7,10 @@ import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { SigninFormValues, signinSchema } from '@/lib/schemes/auth.schema';
-import InputError from './input-error';
 import { toast } from '@/hooks/use-toast';
 import { Link } from '@/i18n/navigation';
 import { GenericToastOptions } from '@/lib/constants/toast.constant';
+import InputError from '../../_components/input-error';
 
 export default function SigninForm() {
   // Translations
@@ -46,8 +46,8 @@ export default function SigninForm() {
       }
 
       toast({
-        title: 'Success',
-        description: 'Welcome to Elevate enjoy',
+        title: t('success'),
+        description: t('welcome-message'),
         variant: 'success',
       });
 

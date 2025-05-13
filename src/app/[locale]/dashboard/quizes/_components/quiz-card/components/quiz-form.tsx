@@ -1,6 +1,6 @@
 'use client';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 
 import { Button } from '@/components/ui/button';
@@ -11,10 +11,10 @@ import {
   questionsFormSchema,
 } from '@/lib/schemes/quiz-questions.schema';
 import { cn } from '@/lib/utils/cn';
-import { useCheckQuestions } from '../_hooks/use-check-questions';
 import QuizTimer from './quiz-timer';
 import UserScore from './user-score';
 import { toast } from '@/hooks/use-toast';
+import { useCheckQuestions } from '../../../_hooks/use-check-questions';
 
 type QuizFormProps = {
   quiz: Quiz;
@@ -72,6 +72,13 @@ export default function QuizForm({ quiz, questions }: QuizFormProps) {
       },
     });
   }
+
+  const onTimerChange = useCallback(
+    (date: Date) =>
+      // get the time passed in the quiz
+      setValue('time', quiz.duration - date.getMinutes() + 1),
+    [quiz.duration, setValue]
+  );
 
   // Effects
   // useEffect(() => {
@@ -138,13 +145,7 @@ export default function QuizForm({ quiz, questions }: QuizFormProps) {
             </p>
 
             {/* Quiz Timer */}
-            <QuizTimer
-              duration={quiz.duration}
-              onTimerChange={(date) =>
-                // get the time passed in the quiz
-                setValue('time', quiz.duration - date.getMinutes() + 1)
-              }
-            />
+            <QuizTimer duration={quiz.duration} onTimerChange={onTimerChange} />
           </div>
 
           {/* Nubmer of Quesiton visualize */}

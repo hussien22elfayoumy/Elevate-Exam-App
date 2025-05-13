@@ -9,11 +9,11 @@ export function useCheckQuestions() {
     mutate: checkQuesionsMutate,
   } = useMutation({
     mutationFn: async (values: QuestionFormVelues) => {
-      const { payload, error } = await checkQuestions(values);
+      const payload = await checkQuestions(values);
 
-      if (error) throw new Error(error.message);
+      if (!payload.success) throw new Error(payload.error);
 
-      return payload;
+      return payload.data;
     },
   });
 

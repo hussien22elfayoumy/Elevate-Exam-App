@@ -24,7 +24,9 @@ const userStats = [
 ];
 
 export default async function UserStats() {
+  // Variables
   const session = await getServerSession(authOptions);
+
   return (
     <>
       <div className="relative h-[200px] w-full overflow-hidden rounded-xl md:size-[220px]">

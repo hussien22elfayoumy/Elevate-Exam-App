@@ -19,9 +19,11 @@ const mappdLocales = {
 };
 
 export default function LanguagesDropDown() {
-  const { locales } = routing;
-  const pathName = usePathname();
+  // Translation
   const locale = useLocale();
+
+  // Navigation
+  const pathName = usePathname();
 
   return (
     <DropdownMenu>
@@ -29,7 +31,7 @@ export default function LanguagesDropDown() {
         <GrLanguage className="mb-1 size-6" />
       </DropdownMenuTrigger>
       <DropdownMenuContent className="bg-my-grey-50">
-        {locales.map((loc) => (
+        {routing.locales.map((loc) => (
           <DropdownMenuItem
             key={loc}
             className={cn(

@@ -1,8 +1,8 @@
 import Image from 'next/image';
-import AddQuestionsDialog from './add-questions-dialog';
-import QuizFormDialog from './quiz-form-dialog';
+import AddQuestionsDialog from '../add-questions';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/auth';
+import QuizFormDialog from './components/quiz-dialog';
 
 type QuizCardProps = {
   quiz: Quiz;

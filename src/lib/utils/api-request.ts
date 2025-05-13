@@ -2,7 +2,13 @@ interface APIRequset extends RequestInit {
   endpoint: string;
 }
 
-export async function apiRequest<T>({ endpoint, ...params }: APIRequset) {
+export async function apiRequest<T>({
+  endpoint,
+  ...params
+}: APIRequset): Promise<
+  | { success: true; data: SuccessfullResponse<T> }
+  | { success: false; error: string }
+> {
   try {
     const res = await fetch(`${process.env.API}/${endpoint}`, params);
 
@@ -12,8 +18,8 @@ export async function apiRequest<T>({ endpoint, ...params }: APIRequset) {
       throw new Error(data.message || 'Something went wrong, try again later');
     }
 
-    return { payload: data, error: null };
+    return { success: true, data };
   } catch (err) {
-    return { payload: null, error: err as Error };
+    return { success: false, error: (err as Error).message };
   }
 }

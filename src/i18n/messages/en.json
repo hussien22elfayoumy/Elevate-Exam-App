@@ -28,5 +28,13 @@
   "contain-one-lower": "Password must contain at least one lowercase letter",
   "contain-one-number": "Password must contain at least one number",
   "contain-one-special": "Password must contain at least one special character",
-  "passwords-dont-match": "Passwords don't match"
+  "passwords-dont-match": "Passwords don't match",
+  "not-found-title": "The page you looking for is not found.",
+  "return-home": "Return Home",
+  "something-went-wrong": "Something went wrong!",
+  "try-again": "Try again",
+  "diplomas": "Diplomas",
+  "welcome-message": "Welcome to Elevate enjoy",
+  "success": "Success",
+  "phone-invalid": "Please enter a valid phone number"
 }

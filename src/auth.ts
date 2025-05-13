@@ -15,7 +15,7 @@ export const authOptions: NextAuthOptions = {
         password: {},
       },
       authorize: async (credentials) => {
-        const { payload, error } = await apiRequest<LoginResponse>({
+        const payload = await apiRequest<LoginResponse>({
           endpoint: 'auth/signin',
           method: 'POST',
           headers: {
@@ -27,12 +27,12 @@ export const authOptions: NextAuthOptions = {
           }),
         });
 
-        if (error) throw new Error(error.message);
+        if (!payload.success) throw new Error(payload.error);
 
         return {
-          id: payload.user._id,
-          user: payload.user,
-          token: payload.token,
+          id: payload.data.user._id,
+          user: payload.data.user,
+          token: payload.data.token,
         };
       },
     }),

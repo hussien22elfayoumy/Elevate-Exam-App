@@ -35,7 +35,7 @@ export default function AddDiplomaForm() {
 
       {/* Form submit */}
       <Button variant="brand" className="mt-5 w-fit self-end">
-        Add dibloma
+        Add diploma
       </Button>
     </form>
   );

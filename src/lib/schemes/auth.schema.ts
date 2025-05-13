@@ -93,7 +93,6 @@ export type ForgotPasswordFormValues = z.infer<
 export const resetPasswordSchema = (t: ReturnType<typeof useTranslations>) =>
   z
     .object({
-      email: emailSchema(t),
       password: passwordSchema(t),
       rePassword: rePasswordSchema,
     })

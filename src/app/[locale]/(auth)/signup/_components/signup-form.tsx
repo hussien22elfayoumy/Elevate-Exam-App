@@ -6,11 +6,11 @@ import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { SignupFormValues, signupSchame } from '@/lib/schemes/auth.schema';
-import { signup } from '../_actions/auth.action';
 import { toast } from '@/hooks/use-toast';
-import InputError from './input-error';
 import { Link, useRouter } from '@/i18n/navigation';
 import { GenericToastOptions } from '@/lib/constants/toast.constant';
+import { signup } from '../../_actions/auth.action';
+import InputError from '../../_components/input-error';
 
 export default function SignupForm() {
   // Navigation
@@ -40,18 +40,19 @@ export default function SignupForm() {
 
   // Signup form submit handler
   async function onSubmit(values: SignupFormValues) {
-    try {
-      await signup(values);
+    const payload = await signup(values);
 
-      toast({
-        title: 'Account created Successfully',
-        description: 'Please login now',
-        variant: 'success',
-      });
-      router.push('/signin');
-    } catch (err) {
-      toast(GenericToastOptions.error((err as Error).message));
+    if (!payload.success) {
+      toast(GenericToastOptions.error(payload.error));
+      return;
     }
+
+    toast({
+      title: 'Account created Successfully',
+      description: 'Please login now',
+      variant: 'success',
+    });
+    router.push('/signin');
   }
 
   return (
