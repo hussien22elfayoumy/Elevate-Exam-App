@@ -8,7 +8,7 @@ export async function getQuizes() {
     endpoint: 'exams',
     method: 'GET',
     headers: {
-      token: accessToken,
+      token: accessToken || '',
     },
   });
 }

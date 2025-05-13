@@ -9,11 +9,11 @@ import InputError from './input-error';
 import {
   ResetPasswordFormValues,
   resetPasswordSchema,
-} from '@/lib/schemas/auth.schema';
+} from '@/lib/schemes/auth.schema';
 import { resetPassword } from '../_actions/auth.action';
 import { toast } from '@/hooks/use-toast';
-import { APIToastError } from '@/lib/utils/api-toast-error';
 import { useRouter } from '@/i18n/navigation';
+import { GenericToastOptions } from '@/lib/constants/toast.constant';
 
 export default function ResetPasswordForm() {
   // Navigation
@@ -39,19 +39,20 @@ export default function ResetPasswordForm() {
 
   // Reset password form submit handler
   async function onSubmit(values: ResetPasswordFormValues) {
-    try {
-      const data = await resetPassword(values);
+    const { payload, error } = await resetPassword(values);
 
-      toast({
-        title: data.message,
-        description: 'Password resetted, you can login in now',
-        variant: 'success',
-      });
-
-      router.push('/signin');
-    } catch (err) {
-      APIToastError(err);
+    if (error) {
+      toast(GenericToastOptions.error(error.message));
+      return;
     }
+
+    toast({
+      title: payload.message,
+      description: 'Password resetted, you can login in now',
+      variant: 'success',
+    });
+
+    router.push('/signin');
   }
 
   return (

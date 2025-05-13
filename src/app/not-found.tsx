@@ -6,9 +6,12 @@ export default function NotFound() {
     <html>
       <body>
         <main className="flex h-screen w-full flex-col items-center justify-center gap-5 px-10">
-          <h2 className="text-xl font-medium">
+          {/* Title */}
+          <h1 className="text-xl font-medium">
             The page you looking for is not found.
-          </h2>
+          </h1>
+
+          {/* Image */}
           <div className="relative h-1/2 w-full">
             <Image
               src="/assets/not-found.svg"
@@ -18,6 +21,8 @@ export default function NotFound() {
               priority
             />
           </div>
+
+          {/* Homepage button */}
           <Link
             href="/"
             className="flex items-center gap-1 font-medium text-brand underline-offset-4 hover:underline"

@@ -1,4 +1,4 @@
-import { Square } from '../index';
+import { Square } from '../..';
 
 export default function DiplomasSkeleton() {
   return (

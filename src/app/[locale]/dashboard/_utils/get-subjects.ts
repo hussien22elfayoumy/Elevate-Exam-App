@@ -8,7 +8,7 @@ export async function getSubjects() {
     endpoint: 'subjects',
     method: 'GET',
     headers: {
-      token: accessToken,
+      token: accessToken || '',
     },
   });
 }

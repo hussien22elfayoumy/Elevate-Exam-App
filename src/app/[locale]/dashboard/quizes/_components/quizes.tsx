@@ -3,14 +3,14 @@ import QuizCard from './quiz-card';
 import { getQuizes } from '../_utils/get-quizes';
 
 export default async function Quizes() {
-  const data = await getQuizes();
+  const { payload } = await getQuizes();
 
   return (
     <>
       {/* all quizes */}
-      {data.exams.length > 0 ? (
+      {Boolean(payload?.exams.length) ? (
         <div className="space-y-4">
-          {data.exams.map((quiz) => (
+          {payload!.exams.map((quiz) => (
             <QuizCard key={quiz._id} quiz={quiz} />
           ))}
         </div>

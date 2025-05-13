@@ -10,12 +10,12 @@ import { Input } from '@/components/ui/input';
 import {
   forgotPassowrdSchema,
   ForgotPasswordFormValues,
-} from '@/lib/schemas/auth.schema';
-import { APIToastError } from '@/lib/utils/api-toast-error';
+} from '@/lib/schemes/auth.schema';
 import InputError from './input-error';
 import { forgotPassword } from '../_actions/auth.action';
 import { toast } from '@/hooks/use-toast';
 import { Link } from '@/i18n/navigation';
+import { GenericToastOptions } from '@/lib/constants/toast.constant';
 
 export default function ForgotPasswordForm() {
   // Translations
@@ -39,19 +39,20 @@ export default function ForgotPasswordForm() {
 
   // Forgot password form submit handler
   async function onSubmit(values: ForgotPasswordFormValues) {
-    try {
-      const data = await forgotPassword(values);
+    const { payload, error } = await forgotPassword(values);
 
-      toast({
-        title: data.message,
-        description: data.info,
-        variant: 'success',
-      });
-
-      router.push('/verify-code');
-    } catch (err) {
-      APIToastError(err);
+    if (error) {
+      toast(GenericToastOptions.error(error.message));
+      return;
     }
+
+    toast({
+      title: payload.message,
+      description: payload.info,
+      variant: 'success',
+    });
+
+    router.push('/verify-code');
   }
 
   return (

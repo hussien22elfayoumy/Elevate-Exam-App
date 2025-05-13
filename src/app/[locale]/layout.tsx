@@ -31,7 +31,11 @@ export default function LocaleLayout({
   }
 
   return (
-    <html lang={locale} dir={locale === 'ar' ? 'rtl' : 'ltr'}>
+    <html
+      lang={locale}
+      dir={locale === 'ar' ? 'rtl' : 'ltr'}
+      suppressHydrationWarning
+    >
       <body
         className={`${poppins.className} bg-my-grey-50 text-my-grey-800 antialiased`}
       >

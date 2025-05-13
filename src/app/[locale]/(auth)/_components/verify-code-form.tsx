@@ -7,8 +7,8 @@ import { Input } from '@/components/ui/input';
 import InputError from './input-error';
 import { verifyResetCode } from '../_actions/auth.action';
 import { toast } from '@/hooks/use-toast';
-import { APIToastError } from '@/lib/utils/api-toast-error';
 import { Link, useRouter } from '@/i18n/navigation';
+import { GenericToastOptions } from '@/lib/constants/toast.constant';
 
 export default function VerifyCodeForm() {
   // Navigation
@@ -30,19 +30,20 @@ export default function VerifyCodeForm() {
 
   // Verify code form submit handler
   async function onSubmit(values: { resetCode: string }) {
-    try {
-      const data = await verifyResetCode(values);
+    const { payload, error } = await verifyResetCode(values);
 
-      toast({
-        title: data.status,
-        description: 'You can reset your password now',
-        variant: 'success',
-      });
-
-      router.push('/reset-password');
-    } catch (err) {
-      APIToastError(err);
+    if (error) {
+      toast(GenericToastOptions.error(error.message));
+      return;
     }
+
+    toast({
+      title: payload.status,
+      description: 'You can reset your password now',
+      variant: 'success',
+    });
+
+    router.push('/reset-password');
   }
 
   return (

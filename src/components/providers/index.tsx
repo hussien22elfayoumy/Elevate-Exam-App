@@ -22,22 +22,24 @@ export default function Providers({ children }: ProivderProps) {
   const timeZone = useTimeZone();
 
   return (
-    <ThemeProvider
-      attribute="class"
-      defaultTheme="system"
-      enableSystem
-      disableTransitionOnChange
-    >
-      <NextAuthProvider>
-        <NextIntlClientProvider
-          messages={messages}
-          locale={locale}
-          now={now}
-          timeZone={timeZone}
-        >
-          <ReactQueryProvider>{children}</ReactQueryProvider>
-        </NextIntlClientProvider>
-      </NextAuthProvider>
-    </ThemeProvider>
+    <ReactQueryProvider>
+      <ThemeProvider
+        attribute="class"
+        defaultTheme="system"
+        enableSystem
+        disableTransitionOnChange
+      >
+        <NextAuthProvider>
+          <NextIntlClientProvider
+            messages={messages}
+            locale={locale}
+            now={now}
+            timeZone={timeZone}
+          >
+            {children}
+          </NextIntlClientProvider>
+        </NextAuthProvider>
+      </ThemeProvider>
+    </ReactQueryProvider>
   );
 }

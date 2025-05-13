@@ -6,7 +6,7 @@ import Subjects from './_components/subjects';
 import UserStats from './_components/user-stats';
 import AddDiplomaDialog from './_components/add-diploma-dialog';
 import { getServerSession } from 'next-auth';
-import DiplomasSkeleton from '@/components/skeletons/diplomas/diplomas.skeleton';
+import DiplomasSkeleton from '@/components/skeletons/features/diploma/diploma-list.skeleton';
 
 export default async function Home() {
   const session = await getServerSession(authOptions);

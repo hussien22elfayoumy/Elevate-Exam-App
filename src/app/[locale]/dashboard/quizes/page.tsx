@@ -5,7 +5,7 @@ import Quizes from './_components/quizes';
 import Search from '../_components/search';
 import AddQuizDialog from './_components/add-quiz-dialog';
 import { authOptions } from '@/auth';
-import QuizesSkeleton from '@/components/skeletons/quizes/quizes.skeleton';
+import QuizesSkeleton from '@/components/skeletons/features/quiz/quiz-list.skeleton';
 
 export default async function Page() {
   const session = await getServerSession(authOptions);

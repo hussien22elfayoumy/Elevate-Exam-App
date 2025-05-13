@@ -6,6 +6,6 @@ export async function getQuizQuestions(quizId: string) {
   return await apiRequest<QuestionsResponse>({
     endpoint: `questions?exam=${quizId}`,
     method: 'GET',
-    headers: { token: accessToken },
+    headers: { token: accessToken || '' },
   });
 }

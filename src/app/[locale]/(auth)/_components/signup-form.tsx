@@ -5,12 +5,12 @@ import { useTranslations } from 'next-intl';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { SignupFormValues, signupSchame } from '@/lib/schemas/auth.schema';
+import { SignupFormValues, signupSchame } from '@/lib/schemes/auth.schema';
 import { signup } from '../_actions/auth.action';
 import { toast } from '@/hooks/use-toast';
 import InputError from './input-error';
-import { APIToastError } from '@/lib/utils/api-toast-error';
 import { Link, useRouter } from '@/i18n/navigation';
+import { GenericToastOptions } from '@/lib/constants/toast.constant';
 
 export default function SignupForm() {
   // Navigation
@@ -50,7 +50,7 @@ export default function SignupForm() {
       });
       router.push('/signin');
     } catch (err) {
-      APIToastError(err);
+      toast(GenericToastOptions.error((err as Error).message));
     }
   }
 

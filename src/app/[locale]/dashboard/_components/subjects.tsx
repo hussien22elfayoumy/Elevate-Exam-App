@@ -4,13 +4,13 @@ import SubjectCard from './subject-card';
 
 export default async function Subjects() {
   // Fetch subjects
-  const data = await getSubjects();
+  const { payload } = await getSubjects();
 
   return (
     <>
-      {data.subjects.length > 0 ? (
+      {Boolean(payload?.subjects.length) ? (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {data.subjects.map((subject) => (
+          {payload?.subjects.map((subject) => (
             <Link key={subject._id} href={`/dashboard/quizes`}>
               <SubjectCard subject={subject} />
             </Link>

@@ -1,6 +1,7 @@
 import { NextAuthOptions } from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
 import { apiRequest } from './lib/utils/api-request';
+import { JSON_HEADER } from './lib/constants/api.constant';
 
 export const authOptions: NextAuthOptions = {
   pages: {
@@ -14,14 +15,19 @@ export const authOptions: NextAuthOptions = {
         password: {},
       },
       authorize: async (credentials) => {
-        const payload = await apiRequest<LoginResponse>({
+        const { payload, error } = await apiRequest<LoginResponse>({
           endpoint: 'auth/signin',
           method: 'POST',
-          body: {
+          headers: {
+            ...JSON_HEADER,
+          },
+          body: JSON.stringify({
             email: credentials?.email,
             password: credentials?.password,
-          },
+          }),
         });
+
+        if (error) throw new Error(error.message);
 
         return {
           id: payload.user._id,
@@ -47,5 +53,4 @@ export const authOptions: NextAuthOptions = {
       return session;
     },
   },
-  secret: process.env.NEXTAUTH_SECRET,
 };

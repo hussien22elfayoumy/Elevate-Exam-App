@@ -9,7 +9,7 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import {
   QuestionFormVelues,
   questionsFormSchema,
-} from '@/lib/schemas/quiz-questions.schema';
+} from '@/lib/schemes/quiz-questions.schema';
 import { cn } from '@/lib/utils/cn';
 import { useCheckQuestions } from '../_hooks/use-check-questions';
 import QuizTimer from './quiz-timer';
